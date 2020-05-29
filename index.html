@@ -9,6 +9,12 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         
+        <!-- Validation JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>       
+        
+        <!-- Register Form JS -->
+        <script type="text/javascript" src="./js/register.js"></script>
+
         <title>Registrarse</title>
     </head>
   <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
@@ -20,20 +26,24 @@
           <div class="card card-signin my-5">
             <div class="card-body">
               <h2 class="card-title text-center">Registrarse</h2>
-              <form class="form-signin">
+              <form class="form-signin" name="registerForm">
                 <div class="form-label-group">
                   <label for="inputEmail">Email</label> 
-                  <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
                 </div>
-  
+                <br>
                 <div class="form-label-group">
-                  <br>
+                    <label for="inputCEmail">Confirmar Email</label> 
+                    <input type="email" name="cEmail" id="inputCEmail" class="form-control" placeholder="Email">
+                </div>
+                <br>
+                <div class="form-label-group">
                   <label for="inputPassword">Contraseña</label>
-                  <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+                  <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
                 </div>
                 <br>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
-                <button type="button" class="btn btn-link" style="margin-left: -10px; padding-top: 10px;" onclick="location.href='sign-in.html'">
+                <button type="button" class="btn btn-link" style="margin-left: -10px; padding-top: 10px;" onclick="location.href='login.html'">
                   Iniciar Sesión
                 </button>
               </form>

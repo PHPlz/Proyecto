@@ -25,13 +25,13 @@ $tables =  array(
 // Fields
 ${"fields_$tables[0]"} = array('nombre', 'mail', 'rol' /* enum */, 'pass'); // 'Usuarios'
 ${"fields_$tables[1]"} = array('nombre', 'diagnostico', 'prioridad' /* enum */, 'idMedico' /*fk user */); // 'Pacientes'
-${"fields_$tables[2]"} = array('nombre', 'und_total'); // 'Equipos'
-${"fields_$tables[3]"} = array('nombre', 'und_disp'); // 'Recursos'
-${"fields_$tables[4]"} = array('nombre' /**/); // 'Habitaciones'
+${"fields_$tables[2]"} = array('tipo', 'und_total'); // 'Equipos'
+${"fields_$tables[3]"} = array('tipo', 'und_disp'); // 'Recursos'
+${"fields_$tables[4]"} = array( /*me parece q simplemente no necesita */); // 'Habitaciones'
 ${"fields_$tables[5]"} = array('idRoom'); // 'Camas'
 ${"fields_$tables[6]"} = array('idEquipo', 'idPaciente', 'idMedico', 'cantidad', 'estado' /*enum */, 'fechaHora'); // 'Soli_Equipos'
 ${"fields_$tables[7]"} = array('idRecurso', 'idPaciente', 'cantidad', 'estado' /*enum */, 'fechaHora'); // 'Soli_Recursos'
-${"fields_$tables[8]"} = array('fh_ingreso', 'fh_salida', 'idPaciente', 'idCama'); // 'Log'
+${"fields_$tables[8]"} = array('fh_ingreso', 'duracion', 'idPaciente', 'idCama', 'esInterno'); // 'Log'
 
 function generateType($fields)
 {
@@ -44,12 +44,20 @@ function generateType($fields)
             case 'prioridad':
                 $type = "ENUM('baja','media','alta')";
                 break;
+            case 'estado': //ilegítimo de israel
+                $type = "ENUM('abierto','rechazado','prestado', 'cerrado')";
+                break;
             case 'und_total':
             case 'und_disp':
                 $type = 'INT';
                 break;
-            case 'ingreso':
-            case 'salida':
+            case 'esInterno':
+                $type = 'BOOLEAN';
+                break;
+            case 'duracion':// en días
+                $type = 'INT';
+                break;
+            case 'fh_ingreso':
             case 'fechaHora':
                 $type = 'TIMESTAMP';
                 break;
@@ -71,6 +79,10 @@ function generateType($fields)
             case 'idCama':
                 $type = "INT, FOREIGN KEY (idCama) REFERENCES {$GLOBALS['tables'][5]}(ID)";
                 break;
+            case 'mail':
+            case 'tipo':
+                $type = "CHAR(50) UNIQUE";
+                break;
             default:
                 $type = 'CHAR(128)';
                 break;
@@ -81,7 +93,7 @@ function generateType($fields)
     }
     return $types;
 }
-
+// field => type arrays
 ${"alt_$tables[0]"} = array_combine(${"fields_$tables[0]"}, generateType(${"fields_$tables[0]"})); // 'Usuarios'
 ${"alt_$tables[1]"} = array_combine(${"fields_$tables[1]"}, generateType(${"fields_$tables[1]"})); // 'Pacientes'
 ${"alt_$tables[2]"} = array_combine(${"fields_$tables[2]"}, generateType(${"fields_$tables[2]"})); // 'Equipos'

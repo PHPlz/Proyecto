@@ -1,0 +1,13 @@
+<?php
+
+
+
+
+/*
+Un MEDICO puede llenar el formulario de registro, presentado a continuación: Una vez llenado el formulario se le notifica al usuario si su registro fue exitoso o no (casos de fallo: usuario ya existente, formato de email inválido). (Nota: La contraseña debe guardarse cifrada)
+Un MEDICO puede ver y seleccionar las habitaciones y las camas disponibles una vez seleccionada una cama se desplegará una página con la información del paciente que la utilizará, en donde el medico tendrá que ingresar: la identificación y el nombre del paciente, un diagnóstico, una prioridad (que puede ser alta, media o baja), una fecha de ingreso, un tiempo de duración en la cama seleccionada (en días). 
+Un MEDICO puede ver y seleccionar solamente sus pacientes. Igualmente podrá ver los equipos asignados a un paciente y, si lo desea, puede eliminar la asignación de un equipo cuando ya no lo necesite (ver ASIGNACIÓN DE EQUIPOS)
+Un MÉDICO puede consultar todos sus pacientes y tendrá la opción de solicitar uno ovarios recursos para cada paciente llenando un formulario de solicitud de recursos, el cualse llenará automáticamente con: el nombre del médico, el nombre del pacienteseleccionado, la fecha y hora de su solicitud. El formulario desplegará la lista de recursosdisponibles y el médico podrá solicitar los que necesite en sus respectivas medidas (ej.:unidades de mascaras, mililitros de anestesia, etc.). Si en el momento de la solicitud unrecurso ya no está disponible, la solicitud será fallida.
+Un MÉDICO, una vez seleccionado un paciente y llenando un formulario de asignación de equipos, el cual se llenará automáticamente con: el nombre del médico, el nombre del paciente seleccionado, la fecha y hora de su solicitud, puede visualizar una pantalla donde se desplieguen todos los equipos no asignados y solicitar el que necesite. El número de equipos que puede solicitar dependerá de la prioridad de su paciente (alta hasta 3 equipos, media 2 equipos y baja 1 equipo). Se debe tener en cuenta si anteriormente se ha pedido o no equipos para el mismo paciente pues, si ya tiene un(os)  recurso(s) asignado(s) contarán para el límite de equipos. Si un paciente ya tiene el máximo de equipos asignados o en el momento de solicitud un equipo ya no está disponible, la solicitud será fallida. Si la solicitud de un equipo realizada por el MÉDICO es exitosa, se enviará un mensaje a el (los) ADMINISTRADOR(ES) para su aprobación (ver: centro de mensajes del administrador).
+ */
+?>

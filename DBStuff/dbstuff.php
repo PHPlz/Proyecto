@@ -75,14 +75,14 @@ function doQueryAllRows($sql)
 //returns  array -> User, Role, C.C. OR false
 function doQueryLogin($user, $pwd)
 {
-    $sql = "SELECT user, rol, cedula FROM usuarios WHERE user='$user' AND passwd='".crypter($pwd)."'";
+    $sql = "SELECT nombre, mail, rol FROM usuarios WHERE nombre='$user' AND pass='".crypter($pwd)."'";
     //echo "doQloginsql::".$sql;
     $conn = mysqli_connect(db_host, db_un, db_pwd, db_name);
     $res =  mysqli_query($conn, $sql);
     if (mysqli_num_rows($res) == 1) {
         $row = mysqli_fetch_assoc($res);
-        echo "{$row['user']},{$row['rol']},{$row['cedula']}";
-        $ret =  array($row['user'],$row['rol'],$row['cedula']);
+        echo "{$row['nombre']},{$row['rol']},{$row['mail']}";
+        $ret =  array($row['nombre'],$row['mail'],$row['rol']);
 
     } else {
         echo mysqli_error($conn);
@@ -227,10 +227,4 @@ function setUpDB()
     */
 } 
 
-/* Se debe crear una tabla usuarios con las columnas: id (automático),
-nombreusuario (único), rol (admin|usuario), contraseña y cédula (la cual debe
-existir en la tabla de personas del taller anterior). La contraseña debe guardarse
-cifrada*/ 
-
-
-setUpDB();
+//setUpDB();

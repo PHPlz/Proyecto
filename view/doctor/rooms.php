@@ -6,7 +6,11 @@
         <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
 
         <link href="./css/index.css" rel="stylesheet" type="text/css"  />
-
+        
+        
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+        
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -15,12 +19,12 @@
         <!-- Validation JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>       
         
-        <!-- Register Form JS -->
-        <script type="text/javascript" src="./js/register.js"></script>
+        <!-- Rooms Form JS -->
+        <script type="text/javascript" src="../js/rooms.js"></script>
 
         <title>Habitaciones</title>
     </head>
-  <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+
 
 <body>
     <div class="container">
@@ -28,49 +32,51 @@
           <h2 class="card-body text-center">Habitaciones</h2>
             <?php
         
-                    /*include('../database/config.php');
-                    $con = mysqli_connect(HOST_DB, USUARIO_DB, USUARIO_PASS, NOMBRE_DB);
-                    
-                    if (mysqli_connect_errno()) {
-                        $str_datos.= "Error en la conexión: " . mysqli_connect_error();
-                    }*/
-
-                    $str_datos = "";
-                    $str_datos.='<table class="table table-hover table-bordered">';
-                    $str_datos.='<thead>';
-                    $str_datos.='<tr>';
-                    $str_datos.='<th>Habitación</th>';
-                    $str_datos.='<th>Camas</th>';
-                    $str_datos.='</tr>';
-                    $str_datos.='</thead>';
-                    
-
-                    /*$str_datos.='<tr>';
-                    $str_datos.= '<td> <select id="bed" class="form-control">';
-                    $str_datos.= "<option selected>Seleccione</option>";
-                    $str_datos.= "</select> </td>";
-                    $str_datos.= "</tr>";*/
-                
-                    /* $resultado = mysqli_query($con,$sql);
-                    while($fila = mysqli_fetch_array($resultado)) {
-                    $str_datos.='<tr>';
-                    $str_datos.= "<td>".$fila['identification']."</td>
-                    <td>".$fila['name']."</td>
-                    <td>".$fila['lastname']."</td>
-                    <td>".$fila['age']."</td>
-                    <td>".$fila['email']."</td>";
-                    $str_datos.= "</tr>";
-                    }*/
-                    
-                    $str_datos.= "</table>";
-                    echo $str_datos;
-                    
-                    /*mysqli_close($con);*/
+                    include('../templates/table.php');
+                    $propertiesTable = 
+                    array('header' => array('Habitación','Camas'), 'actions' => array( 'edit' => true, 'delete' => true ), 'select' => true);  
+                    $contentTable = array(array('001', array('Cama 1','Cama 2')), array('002', array('Cama 1','Cama 2')));
+                    createTable($propertiesTable, $contentTable);
                 ?>
         </div>
     </div>
-    <div id="patientModal">
+    <div>
+    <input class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" type="button" value="Paciente">
+    <?php
+    
+        include('../templates/modal.php');
+        
+        /*Example Form*/
+        
+        echo '<div>';
+        $propertiesForm = 
+        array( 'action' =>  '', 'method' =>  'post', 'id' => 'editModal', 'title' => 'Pacientes', 'buttonName' => 'Guardar', 'confirmation' => false );
+        $contentModal = 
+        array( 'Nombre' => 
+                array ( 'type' => 'numeric', 'id' => 'namePatient', 'name' =>"name"  ,'value' => "", 'required' => true, 'readonly' => true, 'hidden' => false ),
+                'Identificación' => 
+                array ( 'type' => 'text', 'id' => 'idPatient', 'name' =>'id' ,'value' => "", 'required' => true, 'readonly' => false, 'hidden' => false ),
+                'Prueba' =>
+                array ( 'type' => 'select', 'id' => 'prueba', 'options' => array('Alta', 'Baja', 'Media') )
+            );
 
+        echo createModal($propertiesForm, $contentModal);
+        echo '</div>';
+    ?>
+
+    <?php
+  
+        /*Example Alert*/
+        
+        $propertiesFormDelete = 
+        array( 'action' =>  's', 'method' =>  'post', 'id' => 'deleteModal', 'title' => 'Eliminar', 'buttonName' => 'Si', 'confirmation' => true );
+        $contentModalDelete = 
+            array( 'Confirmación' => array( 'type' => 'label', 'value' => 'Esta seguro que quiere eliminar este elemento' )); 
+        echo '<div>';
+        createModal($propertiesFormDelete, $contentModalDelete); 
+        echo '</div>';    
+        
+    ?>
     
     </div>
   </body>

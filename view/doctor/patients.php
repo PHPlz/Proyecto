@@ -20,7 +20,7 @@
 
         <title>Pacientes</title>
     </head>
-  <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+
 
 <body>
     <div class="container">

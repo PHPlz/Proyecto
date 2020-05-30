@@ -18,41 +18,14 @@
         <!-- Register Form JS -->
         <script type="text/javascript" src="./js/register.js"></script>
 
-        <title>Registrarse</title>
+        <title>Pacientes</title>
     </head>
   <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
 
 <body>
     <div class="container">
       <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-          <div class="card card-signin my-5">
-            <div class="card-body">
-              <h2 class="card-title text-center">Registrarse</h2>
-              <form class="form-signin" name="registerForm">
-                <div class="form-label-group">
-                  <label for="email">Email</label> 
-                  <input type="email" name="email" id="email" class="form-control" placeholder="Email" required autofocus>
-                </div>
-                <br>
-                <div class="form-label-group">
-                    <label for="inputCEmail">Confirmar Email</label> 
-                    <input type="email" name="cEmail" id="inputCEmail" class="form-control" placeholder="Email">
-                </div>
-                <br>
-                <div class="form-label-group">
-                  <label for="inputPassword">Contraseña</label>
-                  <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" required>
-                </div>
-                <br>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
-                <button type="button" class="btn btn-link" style="margin-left: -10px; padding-top: 10px;" onclick="location.href='login.html'">
-                  Iniciar Sesión
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
+      
       </div>
     </div>
   </body>

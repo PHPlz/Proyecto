@@ -51,7 +51,6 @@ function generateType($fields)
             case 'ingreso':
             case 'salida':
             case 'fechaHora':
-                echo 'fail';
                 $type = 'TIMESTAMP';
                 break;
             case 'idMedico':

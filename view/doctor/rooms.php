@@ -52,11 +52,11 @@
         $propertiesForm = 
         array( 'action' =>  '', 'method' =>  'post', 'id' => 'editModal', 'title' => 'Pacientes', 'buttonName' => 'Guardar', 'confirmation' => false );
         $contentModal = 
-        array( 'Nombre' => 
+        array( 'Nombre:' => 
                 array ( 'type' => 'numeric', 'id' => 'namePatient', 'name' =>"name"  ,'value' => "", 'required' => true, 'readonly' => true, 'hidden' => false ),
-                'Identificación' => 
+                'Identificación:' => 
                 array ( 'type' => 'text', 'id' => 'idPatient', 'name' =>'id' ,'value' => "", 'required' => true, 'readonly' => false, 'hidden' => false ),
-                'Prueba' =>
+                'Prioridad:' =>
                 array ( 'type' => 'select', 'id' => 'prueba', 'options' => array('Alta', 'Baja', 'Media') )
             );
 

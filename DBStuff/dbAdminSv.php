@@ -16,13 +16,23 @@
         {
         }
 
-        static function addAdmin()
+        //if $data['id'] is set updates user, else creates a new admin
+        static function addAdmin($data)
         {
-            global $tables;
+            global $tables, ${"fields_$tables[0]"};
             if (!verifyAdmin()) {
                 return -1;
             }
-            // like alter user or what?
+            if (isset($data['id'])) {
+                //echo "<br>:: >>s BANG upd<br>". var_dump( array_combine( explode(',',$fields),  explode(',',$vals2) ) );
+            return doQuery("UPDATE $tables[0] SET rol = 'admin' WHERE ID = ${data['id']}") ;
+                //$msg = "$_POST[nombre] updated";
+            } else {
+                
+                $vals= array("'$data[nombre]'" ,"'$data[email]'","'admin'", "'".crypter( $data['password']."'" ));
+                
+                return  doQuery(insertTableSQl($tables[0], ${"fields_$tables[0]"} , $vals ) );
+            }
         }
 
         //
@@ -129,30 +139,82 @@
         {
             global $tables;
             //verify here admin and condition
-            doQuery("UPDATE $tables[6] SET idPaciente='$patientIdD' WHERE idEquipo='$idEquipo' ");
-        }
-
-        static function verifyDisp($table, $type)
-        {
-        }
-        /*static function assignEquip($type, $patientId){
-            if(verifyDisp($tables[2],$type) ){
-                doQuery("UPDATE $tables[2] SET  "));
+            if (AdminSv::verifyPriority($patientIdO, $patientIdD)) {
+                doQuery("UPDATE $tables[6] SET idPaciente='$patientIdD' WHERE idEquipo='$idEquipo' ");
             }
-        }*/
+        }
 
+        static function verifyPriority($idPo, $idPd){
+            global $tables;
+            $sqlO = "SELECT prioridad FROM $tables[1] WHERE ID = $idPo";
+            $sqlD = "SELECT prioridad FROM $tables[1] WHERE ID = $idPd";
+            $prioridadO = doQueryFirstRow($sqlO)['prioridad'];
+            $prioridadD = doQueryFirstRow($sqlD)['prioridad'];
+            if($prioridadO != $prioridadD && ($prioridadO =='baja' || $prioridadD == 'alta' ) ){
+                return true;
+            }
+                return false;
+        }
 
-        static function freeEquip($req)
+        static function verifyDispEquipo($type)
         {
+            global $tables;
+            $idEq = AdminSv::getEquipoId($type);
+            $disp = doQueryFirstRow("SELECT * FROM $tables[2] WHERE idEquipo = $idEq")['und_total'];
+            $eqPrestados = doQuery2("SELECT * FROM $tables[6] WHERE idEquipo = $idEq AND estado = 'prestado' ");
+            return $disp > $eqPrestados;
+        }
+        
+        // defaults to 1 equipment w the logged id of logged in
+        static function assignEquip($type, $patientId, $idMedic = '',$amount=1){
+            if($idMedic = ''){$idMedic = $_COOKIE['ID'];
+            }
+            global $tables, ${"fields_$tables[6]"};
+            if( AdminSv::verifyDispEquipo($type) ){
+                $fields = array_diff(${"fields_$tables[6]"},array('fechaHora'));
+                $values = array(
+                AdminSv::getEquipoId($type), 
+                $patientId,
+                $idMedic,
+                $amount,
+                'prestado');
+                return doQuery(insertTableSQl($tables[6],$fields,$values) );
+            }
+            return false;
+        }
+
+
+        static function freeEquip($reqId)
+        {
+            global $tables;
+            doQuery("UPDATE $tables[6] SET estado = 'cerrado' WHERE ID = $reqId" );
         }
 
 
         static function fetchRequests()
         {
+            global $tables;
+            return doQueryAllRows("SELECT * FROM $tables[6]");
         }
-        static function processRequest($ReqId, $isApproved)
+        
+        static function fetchRequestsActive()
         {
+            global $tables;
+            return doQueryAllRows("SELECT * FROM $tables[6] WHERE estado = 'abierta'");
         }
+        static function processRequest($reqId, $isApproved)
+        {
+            global $tables;
+            $newState = $isApproved ? "prestado" : "rechazado";
+            return doQuery("UPDATE $tables[6] SET estado = $newState WHERE ID = $reqId");
+        }
+
+        static function getEquipoId($type){
+            global $tables;
+            $row = doQueryFirstRow("SELECT ID FROM $tables[2] WHERE tipo ='$type'");
+            return $row===false ? $row['ID'] : false;
+        }
+
     }
 /*
 Un ADMINISTRADOR solamente puede ser agregado por otro administrador. 

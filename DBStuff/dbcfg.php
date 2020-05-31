@@ -29,7 +29,9 @@ ${"fields_$tables[2]"} = array('tipo', 'und_total'); // 'Equipos'
 ${"fields_$tables[3]"} = array('tipo', 'und_disp'); // 'Recursos'
 ${"fields_$tables[4]"} = array( /*me parece q simplemente no necesita */); // 'Habitaciones'
 ${"fields_$tables[5]"} = array('idRoom'); // 'Camas'
+
 ${"fields_$tables[6]"} = array('idEquipo', 'idPaciente', 'idMedico', 'cantidad', 'estado' /*enum */, 'fechaHora'); // 'Soli_Equipos'
+
 ${"fields_$tables[7]"} = array('idRecurso', 'idPaciente', 'cantidad', 'estado' /*enum */, 'fechaHora'); // 'Soli_Recursos'
 ${"fields_$tables[8]"} = array('fh_ingreso', 'duracion', 'idPaciente', 'idCama', 'esInterno'); // 'Log'
 
@@ -45,7 +47,7 @@ function generateType($fields)
                 $type = "ENUM('baja','media','alta')";
                 break;
             case 'estado': //ilegítimo de israel
-                $type = "ENUM('abierto','rechazado','prestado', 'cerrado')";
+                $type = "ENUM('abierta','rechazado','prestado', 'cerrado')";
                 break;
             case 'und_total':
             case 'und_disp':
@@ -59,7 +61,7 @@ function generateType($fields)
                 break;
             case 'fh_ingreso':
             case 'fechaHora':
-                $type = 'TIMESTAMP';
+                $type = 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP';
                 break;
             case 'idMedico':
                 $type = "INT, FOREIGN KEY (idMedico) REFERENCES {$GLOBALS['tables'][0]}(ID)";

@@ -1,4 +1,4 @@
-   <?php
+       <?php
 
     include_once './dbstuff.php';
 
@@ -68,29 +68,84 @@
                 /*foreach (doQueryAllRows($sql) as $v) {
                     echo var_dump($v);
                 }*/
-                return doQueryAllRows($sql);
+                $patientData = array();
+                $queryRows = doQueryAllRows($sql);
+                foreach ($queryRows as $value) {
+                    echo var_dump($value);
+                    $patientData[$value['pat.ID']] =  array();
+                };//if this works rows should be collapsed by patient Id
+
+                foreach ($queryRows as $value) {
+                    $patientData[$value['pat.ID']]['pat.nombre']  = $value['pat.nombre'];
+                    $patientData[$value['pat.ID']]['bed.ID']      = $value['bed.ID'];
+                    $patientData[$value['pat.ID']]['bed.idRoom '] = $value['bed.idRoom '];
+                    $patientData[$value['pat.ID']]['doc.ID']      = $value['doc.ID'];
+                    $patientData[$value['pat.ID']]['doc.nombre']  = $value['doc.nombre'];
+                    $patientData[$value['pat.ID']]['eqp.tipo'][]    = $value['eqp.tipo'];
+                }// trying to save as:
+                //[patient id => [bedId => id,  ... ,eqptype => [ eq1, eq2, eq3]], ...]
             }
         }
 
         static function fetchResources()
         {
             global $tables;
-            fetchTable($tables[3]);
+            return fetchTable($tables[3]);
         }
 
-        static function addResource($name, $units)
+        static function addResource($resourceName, $units)
         {
+            global $tables, ${"fields_$tables[3]"};
+
+            $testq = "SELECT * FROM $tables[3] WHERE tipo = '$resourceName'";
+
+            if (doQuery2($testq) > 0) {
+                $sql = "UPDATE $tables[3] SET und_disp=und_disp+$units";
+                $success = doQuery($sql);
+            } else {
+                $success =  doQuery(insertTableSQl($tables[3], ${"fields_$tables[3]"}, array($resourceName, $units)));
+            }
         }
 
         static function fetchEquipments()
         {
+            global $tables;
+            return fetchTable($tables[2]);
         }
-        static function addEquipment($name, $units)
+        static function addEquipment($equipName, $units)
+        {
+            global $tables, ${"fields_$tables[2]"};
+
+            $testq = "SELECT * FROM $tables[2] WHERE tipo = '$equipName'";
+
+            if (doQuery2($testq) > 0) {
+                $sql = "UPDATE $tables[2] SET und_total=und_total+$units";
+                $success = doQuery($sql);
+            } else {
+                $success =  doQuery(insertTableSQl($tables[3], ${"fields_$tables[3]"}, array($resourceName, $units)));
+            }
+        }
+        static function reasignEquipment($idEquipo, $patientIdO, $patientIdD)
+        {
+            global $tables;
+            //verify here admin and condition
+            doQuery("UPDATE $tables[6] SET idPaciente='$patientIdD' WHERE idEquipo='$idEquipo' ");
+        }
+
+        static function verifyDisp($table, $type)
         {
         }
-        static function reasignEquipment($name, $patientIdO, $patientIdD)
+        /*static function assignEquip($type, $patientId){
+            if(verifyDisp($tables[2],$type) ){
+                doQuery("UPDATE $tables[2] SET  "));
+            }
+        }*/
+
+
+        static function freeEquip($req)
         {
         }
+
 
         static function fetchRequests()
         {

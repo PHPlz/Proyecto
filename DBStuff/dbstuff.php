@@ -168,7 +168,7 @@ function updateTableSQl($tableN, $tabelData)
 
     $base = "UPDATE $tableN SET ";
     foreach ($tabelData  as $key => $value) {
-        $base .= $key == 'edad' ? "$key = $value ," : "$key = '$value'  ,";
+        $base .= $key == 'ID' ? "$key = $value ," : "$key = '$value'  ,";
     }
     $base = rtrim($base, ',');
     $base .= "WHERE cedula = '$tabelData[cedula]'";

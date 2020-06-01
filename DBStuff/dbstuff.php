@@ -41,14 +41,15 @@ function doQuery2($sql)
     return $retNotBool;
 }
 
-function doQueryFirstRow($sql){
+function doQueryFirstRow($sql)
+{
     $conn = mysqli_connect(db_host, db_un, db_pwd, db_name);
     $res =  mysqli_query($conn, $sql);
-    
+
     $ret = is_bool($res) ? false : mysqli_num_rows($res);
     if (!$ret) {
         echo mysqli_error($conn);
-    }else{
+    } else {
         $ret = mysqli_fetch_assoc($res);
     }
 
@@ -63,6 +64,9 @@ function doQueryAllRows($sql)
     $conn = mysqli_connect(db_host, db_un, db_pwd, db_name);
     $dbData = mysqli_query($conn, $sql);
     $data = array();
+    if (!$dbData) {
+        echo mysqli_error($conn);
+    }
     while ($row = mysqli_fetch_assoc($dbData)) {
         $data[] = $row;
     }
@@ -75,15 +79,14 @@ function doQueryAllRows($sql)
 //returns  array -> User, Role, C.C. OR false
 function doQueryLogin($user, $pwd)
 {
-    $sql = "SELECT user, rol, cedula FROM usuarios WHERE user='$user' AND passwd='".crypter($pwd)."'";
+    $sql = "SELECT nombre, mail, rol FROM usuarios WHERE nombre='$user' AND pass='" . crypter($pwd) . "'";
     //echo "doQloginsql::".$sql;
     $conn = mysqli_connect(db_host, db_un, db_pwd, db_name);
     $res =  mysqli_query($conn, $sql);
     if (mysqli_num_rows($res) == 1) {
         $row = mysqli_fetch_assoc($res);
-        echo "{$row['user']},{$row['rol']},{$row['cedula']}";
-        $ret =  array($row['user'],$row['rol'],$row['cedula']);
-
+        echo "{$row['nombre']},{$row['rol']},{$row['mail']}";
+        $ret =  array($row['nombre'], $row['mail'], $row['rol']);
     } else {
         echo mysqli_error($conn);
         $ret = false;
@@ -105,14 +108,11 @@ function createTableSQl($tabName, $fields)
     return $base;
 }
 
-
-function insertTableSQl($tabName, $field)
+//receives arrays
+function insertTableSQl($tabName, $fields, $values)
 { //fields as fields => values. single string assumed or commas included
     $base = 'INSERT INTO ' . $tabName;
-
-    foreach ($field as  $f => $val) {
-        $base .= ' (' . $f . ') VALUES (' . $val . ')';
-    }
+    $base .= ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
     return $base;
 }
 
@@ -156,13 +156,19 @@ function fetchUsers()
     return $tableRows;
 }
 
+//fetch table w  condition (default empty)
+function fetchTable($tableName, $condition = array())
+{
+    $sql = "SELECT * FROM $tableName" . empty($condition) ? '' : " WHERE $condition";
+    return doQueryAllRows($sql);
+}
 
 function updateTableSQl($tableN, $tabelData)
 {
 
     $base = "UPDATE $tableN SET ";
     foreach ($tabelData  as $key => $value) {
-        $base .= $key == 'edad' ? "$key = $value ," : "$key = '$value'  ,";
+        $base .= $key == 'ID' ? "$key = $value ," : "$key = '$value'  ,";
     }
     $base = rtrim($base, ',');
     $base .= "WHERE cedula = '$tabelData[cedula]'";
@@ -179,57 +185,24 @@ function crypter($pwd)
 
 function setUpDB()
 {
-    DBQuery('DROP DATABASE IF EXISTS '.db_name);
-    DBQuery('CREATE DATABASE '.db_name);
-    
+    DBQuery('DROP DATABASE IF EXISTS ' . db_name);
+    DBQuery('CREATE DATABASE ' . db_name);
+
     //DROP TABLES (BOBBY)
     foreach ($GLOBALS['tables'] as $value) {
         doQuery("DROP TABLE IF EXISTS $value;");
     }
-    
+
     //CREATE TABLES
     foreach ($GLOBALS['tables'] as $key => $value) {
-        doQuery(createTableSQl( $value, $GLOBALS["alt_$value"]));
+        doQuery(createTableSQl($value, $GLOBALS["alt_$value"]));
     }
 
     //INSERT SAMPLE DATA
     //>> sample insert
-    doQuery(insertTableSQl( // create insertion sql()  -> do query ()
+    /*doQuery(insertTableSQl( // create insertion sql()  -> do query ()
         $GLOBALS['tables'][0], // get table 0 name ; aka first arg
-        array(   //second arg is the actual fields => values as  in 
-                 //["field1,..." => "'balbal' , 'blabla' , 5, 34 , 'asd@fhg.aew' ..."]
-            implode(",", $GLOBALS["fields_{$GLOBALS['tables'][0]}" ] ) //implode does that
-            => 
-            implode( array( "'name','meil','admin','passs'") ))));
-
-    /*
-    doQuery('DROP TABLE IF EXISTS usuarios');
-    doQuery('DROP TABLE IF EXISTS personas');
-
-    //PERSONAS 
-    $persona = array('cedula' => 'CHAR(20) UNIQUE', 'nombre' => 'CHAR(20)', 'apellido' => 'CHAR(20)', 'email' => 'CHAR(20)', 'edad' => 'INT');
-    doQuery(createTableSQl('personas', $persona));
-
-    $fields = 'cedula, nombre , apellido, email, edad';
-    $val1 = "'ced1', 'nom1' , 'apel1', 'emai1', 12";
-    $val2 = "'ced2', 'nom2' , 'apel2', 'emai2', 22";
-    $val3 = "'ced3', 'nom3' , 'apel3', 'emai3', 32";
-    doQuery(insertTableSQl('personas', array($fields => $val1)));
-    doQuery(insertTableSQl('personas', array($fields => $val2)));
-    doQuery(insertTableSQl('personas', array($fields => $val3)));
-
-    //USUARIOS
-    $usuarios = array('user' => 'CHAR(20) UNIQUE', 'rol' => "ENUM('admin','usuario')", 'passwd' => 'CHAR(150)', 'cedula' => 'CHAR(20), FOREIGN KEY (cedula) REFERENCES personas(cedula)');
-    doQuery(createTableSQl('usuarios', $usuarios));
-    $fields = 'user, rol, passwd, cedula';
-    $val1 = "'testUser1', 'usuario' , '" . crypter('testpw') . "', 'ced1'";
-    //doQuery(insertTableSQl('usuarios', array($fields => $val1)));
-    */
-} 
-
-/* Se debe crear una tabla usuarios con las columnas: id (automático),
-nombreusuario (único), rol (admin|usuario), contraseña y cédula (la cual debe
-existir en la tabla de personas del taller anterior). La contraseña debe guardarse
-cifrada*/ 
-
+         $GLOBALS["fields_{$GLOBALS['tables'][0]}"], // FIELDS 
+        array("'admin','admin@adminmail.fake','admin','" . crypter("madmin") . "'") ) ); // VALUES
+    */} 
 

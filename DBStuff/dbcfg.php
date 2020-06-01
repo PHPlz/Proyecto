@@ -1,10 +1,8 @@
 <?php
-define('db_un', 'lain');
-define('db_pwd', '48OAWAjszUKSehJn');
+define('db_un', 'admindb');
+define('db_pwd', 'rA7VvZTcI4NlQrfI');
 define('db_host', 'localhost');
-define('db_name', 'fancyShinyProyectDb');
-//define('db_name', 'fancydb');
-
+define('db_name', 'miBD');
 
 // DB stuff ahead:
 
@@ -92,3 +90,5 @@ ${"alt_$tables[5]"} = array_combine(${"fields_$tables[5]"}, generateType(${"fiel
 ${"alt_$tables[6]"} = array_combine(${"fields_$tables[6]"}, generateType(${"fields_$tables[6]"})); // 'Soli_Equipos'
 ${"alt_$tables[7]"} = array_combine(${"fields_$tables[7]"}, generateType(${"fields_$tables[7]"})); // 'Soli_Recursos' //revisar fb para comentarios o preguntarle al we
 ${"alt_$tables[8]"} = array_combine(${"fields_$tables[8]"}, generateType(${"fields_$tables[8]"})); // 'Log'
+
+

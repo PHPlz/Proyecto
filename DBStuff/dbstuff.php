@@ -1,5 +1,5 @@
 <?php
-include_once './dbcfg.php';
+include_once 'dbcfg.php';
 
 function DBQuery($sql)
 {
@@ -233,4 +233,3 @@ existir en la tabla de personas del taller anterior). La contraseña debe guarda
 cifrada*/ 
 
 
-setUpDB();

@@ -17,13 +17,16 @@
             for($i = 0; $i < count($contentTable); ++$i) {
                 $str_datos.='<tr>';
                 
-                for($j = 0; $j < count($contentTable[$i]); ++$j) {
+                $j = 0
+                for( $contentTable[$i] as $key => $element ) {
                     
                     if($j == count($contentTable[$i])-1 && $propertiesTable['select'] == true ){
                        break;
                     }
 
-                    $str_datos.= '<td>'.$contentTable[$i][$j]."</td>";
+                    ++$j;
+
+                    $str_datos.= '<td>'.$element."</td>";
 
                 }
                  

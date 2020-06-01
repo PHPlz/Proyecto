@@ -6,7 +6,7 @@ function waitForCloseClick() {
     $(document).unbind( 'mouseup' );
     setTimeout( function(){
 		if( $('#select-data').val() != 'Seleccione'){
-	  		 $('#editModal').modal();	
+	  		 $('#patientModal').modal();	
 		}    
     }, 1);
     return false;

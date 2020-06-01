@@ -34,14 +34,14 @@
         
                     include('../templates/table.php');
                     $propertiesTable = 
-                    array('header' => array('Habitación','Camas'), 'actions' => array( 'edit' => true, 'delete' => true ), 'select' => true);  
+                    array('header' => array('Habitación','Camas'), 'actions' => array(), 'select' => true); 
+                   // array('header' => array('Habitación','Camas'), 'actions' => array( 'edit' => true, 'delete' => true ), 'select' => true);  
                     $contentTable = array(array('001', array('Cama 1','Cama 2')), array('002', array('Cama 1','Cama 2')));
                     createTable($propertiesTable, $contentTable);
                 ?>
         </div>
     </div>
     <div>
-    <input class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" type="button" value="Paciente">
     <?php
     
         include('../templates/modal.php');
@@ -50,14 +50,20 @@
         
         echo '<div>';
         $propertiesForm = 
-        array( 'action' =>  '', 'method' =>  'post', 'id' => 'editModal', 'title' => 'Pacientes', 'buttonName' => 'Guardar', 'confirmation' => false );
+        array( 'action' =>  '', 'method' =>  'post', 'id' => 'patientModal', 'title' => 'Pacientes', 'buttonName' => 'Guardar', 'confirmation' => false );
         $contentModal = 
         array( 'Nombre:' => 
-                array ( 'type' => 'numeric', 'id' => 'namePatient', 'name' =>"name"  ,'value' => "", 'required' => true, 'readonly' => true, 'hidden' => false ),
+                array ( 'type' => 'text', 'id' => 'namePatient', 'name' =>"name"  ,'value' => "", 'required' => true, 'readonly' => false, 'hidden' => false ),
                 'Identificación:' => 
-                array ( 'type' => 'text', 'id' => 'idPatient', 'name' =>'id' ,'value' => "", 'required' => true, 'readonly' => false, 'hidden' => false ),
+                array ( 'type' => 'number', 'id' => 'idPatient', 'name' =>'id' ,'value' => "", 'required' => true, 'readonly' => false, 'hidden' => false ),
+                'Diagnóstico:' => 
+                array ( 'type' => 'text', 'id' => 'diagnosticPatient', 'name' =>"diagnostic"  ,'value' => "", 'required' => true, 'readonly' => false, 'hidden' => false ),
                 'Prioridad:' =>
-                array ( 'type' => 'select', 'id' => 'prueba', 'options' => array('Alta', 'Baja', 'Media') )
+                array ( 'type' => 'select', 'id' => 'prueba', 'options' => array('Alta', 'Baja', 'Media') ),
+                'Fecha de ingreso:' =>
+                array ( 'type' => 'date', 'id' => 'datePatient', 'name' =>"date"  ,'value' => "", 'required' => true, 'readonly' => false, 'hidden' => false ),
+                'Duración (Días):' =>
+                array ( 'type' => 'number', 'id' => 'datePatient', 'name' =>"duration"  ,'value' => "", 'required' => true, 'readonly' => false, 'hidden' => false )
             );
 
         echo createModal($propertiesForm, $contentModal);

@@ -26,7 +26,7 @@ ${"fields_$tables[1]"} = array('nombre', 'diagnostico', 'prioridad' /* enum */, 
 ${"fields_$tables[2]"} = array('tipo', 'und_total'); // 'Equipos'
 ${"fields_$tables[3]"} = array('tipo', 'und_disp'); // 'Recursos'
 ${"fields_$tables[4]"} = array( /*me parece q simplemente no necesita */); // 'Habitaciones'
-${"fields_$tables[5]"} = array('idRoom'); // 'Camas'
+${"fields_$tables[5]"} = array('idRoom','activo'); // 'Camas'
 
 ${"fields_$tables[6]"} = array('idEquipo', 'idPaciente', 'idMedico', 'cantidad', 'estado' /*enum */, 'fechaHora'); // 'Soli_Equipos'
 
@@ -82,6 +82,9 @@ function generateType($fields)
             case 'mail':
             case 'tipo':
                 $type = "CHAR(50) UNIQUE";
+                break;
+            case 'activo':
+                $type = 'BOOLEAN';
                 break;
             default:
                 $type = 'CHAR(128)';

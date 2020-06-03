@@ -14,35 +14,41 @@
             }
             $str_datos.='</thead>';
             $str_datos.='<tbody>';
-            for($i = 0; $i < count($contentTable); ++$i) {
+            foreach($contentTable as $element) {
                 $str_datos.='<tr>';
                 
-                $j = 0
-                for( $contentTable[$i] as $key => $element ) {
-                    
-                    if($j == count($contentTable[$i])-1 && $propertiesTable['select'] == true ){
-                       break;
+                $j = 0;
+                foreach( $element as $elementA ) {
+                    if( $propertiesTable['select'] == true ){
+                       if($j == count($element)-1){
+                           $str_datos.='<td><select class="form-control" id="select-data">';
+                           $str_datos.="<option selected>Seleccione</option>";
+                           if($elementA != null || empty($elementA)){
+                              foreach( $elementA as $arrayS) {
+                                 foreach( $arrayS as $elementS) {      
+                                          $str_datos.='<option>'.$elementS."</option>";    
+                                 }       
+                              }
+                            }
+                                
+                           $str_datos.="</select></td>";
+                        }
+
+                        elseif($j == 0){
+                            $str_datos.= '<td>'.$elementA."</td>";
+                        }
+                      
+                       
+                    }
+
+                    elseif($j != 0){
+                        $str_datos.= '<td>'.$elementA."</td>";
                     }
 
                     ++$j;
-
-                    $str_datos.= '<td>'.$element."</td>";
-
+                
                 }
                  
-                if($propertiesTable['select'] == true ){
-                
-                    $str_datos.='<td><select class="form-control" id="select-data">';
-                    $str_datos.="<option selected>Seleccione</option>";
-                    if(count($contentTable[$i][count($contentTable[$i])-1]) > 0){                   
-                       for ( $k = 0; $k < count($contentTable[$i][count($contentTable[$i])-1]); ++$k){
-                            $str_datos.='<option>'.$contentTable[$i][count($contentTable[$i])-1][$k]."</option>";           
-                       }
-                    }
-                    $str_datos.="</select></td>";
-                  
-                }
-
                 if($propertiesTable['actions'] != null){
                    
                    $str_datos.='<td>';
@@ -53,7 +59,11 @@
                    if($propertiesTable['actions']['delete'] == true){
                       $str_datos.='
                       <button class="btn btn-primary" id="btn-deleteModal" data-toggle="modal" data-target="#deleteModal" ><i class="fa fa-trash"></i></button>';
-                   }  
+                   }
+                   if($propertiesTable['actions']['others'] == true){
+                      $str_datos.='
+                      <button type="submit" class="btn btn-primary" id="btn-other">Solicitar Recursos</button>';
+                    }  
 
                    $str_datos.="</td>";
                 }

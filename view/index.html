@@ -29,7 +29,12 @@
           <div class="card card-signin my-5">
             <div class="card-body">
               <h2 class="card-title text-center">Registrarse</h2>
-              <form class="form-signin" name="registerForm">
+              <form action="../service/register.php" method="post" class="form-signin" name="registerForm">
+                <div class="form-label-group">
+                  <label for="name">Nombre:</label> 
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Nombre" required autofocus>
+                  <br>
+                </div>
                 <div class="form-label-group">
                   <label for="email">Email</label> 
                   <input type="email" name="email" id="email" class="form-control" placeholder="Email" required autofocus>

@@ -41,12 +41,29 @@ function doQuery2($sql)
     return $retNotBool;
 }
 
-function doQueryFirstRow($sql)
+function doQuery3($sql)
 {
     $conn = mysqli_connect(db_host, db_un, db_pwd, db_name);
     $res =  mysqli_query($conn, $sql);
 
+    if (!$res) {
+        echo mysqli_error($conn);
+    }
+    else{
+        $res = mysqli_fetch_assoc($res);
+    }
+
+    mysqli_close($conn);
+
+    return $res;
+}
+
+function doQueryFirstRow($sql)
+{
+    $conn = mysqli_connect(db_host, db_un, db_pwd, db_name);
+    $res =  mysqli_query($conn, $sql);
     $ret = is_bool($res) ? false : mysqli_num_rows($res);
+
     if (!$ret) {
         echo mysqli_error($conn);
     } else {
@@ -79,13 +96,13 @@ function doQueryAllRows($sql)
 //returns  array -> User, Role, C.C. OR false
 function doQueryLogin($user, $pwd)
 {
-    $sql = "SELECT nombre, mail, rol FROM usuarios WHERE nombre='$user' AND pass='" . crypter($pwd) . "'";
+    $sql = "SELECT nombre, mail, rol FROM usuarios WHERE mail='$user' AND pass='" . crypter($pwd) . "'";
     //echo "doQloginsql::".$sql;
     $conn = mysqli_connect(db_host, db_un, db_pwd, db_name);
     $res =  mysqli_query($conn, $sql);
     if (mysqli_num_rows($res) == 1) {
         $row = mysqli_fetch_assoc($res);
-        echo "{$row['nombre']},{$row['rol']},{$row['mail']}";
+        //echo "{$row['nombre']},{$row['rol']},{$row['mail']}";
         $ret =  array($row['nombre'], $row['mail'], $row['rol']);
     } else {
         echo mysqli_error($conn);
@@ -206,3 +223,4 @@ function setUpDB()
         array("'admin','admin@adminmail.fake','admin','" . crypter("madmin") . "'") ) ); // VALUES
     */} 
 
+//setUpDB();

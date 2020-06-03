@@ -1,26 +1,17 @@
 <?php
      
-    function createModal($propertiesForm, $contentModal){
+    function createForm($propertiesForm, $contentModal){
 
         $str_datos = "";
-
         $str_datos.='<form action="'.$propertiesForm['action'].'" method="'.$propertiesForm['method'].'">';
-          $str_datos.='<div class="modal fade" id="'.$propertiesForm['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-               $str_datos.='<div class="modal-dialog" role="document">';
-                    $str_datos.='<div class="modal-content">';
-                       $str_datos.='<div class="modal-header">';
-                           $str_datos.='<h5 class="modal-title" id="exampleModalLabel">'.$propertiesForm['title']."</h5>";
-                           $str_datos.='<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-                           $str_datos.='<span aria-hidden="true">&times;</span>';
-                           $str_datos.="</button>";
-                        $str_datos.="</div>";
-                        $str_datos.='<div class="modal-body">';
+         
+                        $str_datos.='<div>';
                         
                             foreach ($contentModal as $key => $element){
 
-                            $str_datos.='<div class="form-group col-md-12">';
+                            $str_datos.='<div class="form-group">';
 
-                                if ($element['type'] != 'select' && $element['type'] != 'label') { 
+                                if ($element['type'] != 'select' && $element['type'] != 'label' && $element['type'] != 'textArea' ) { 
                                     
                                     $str_datos.='<label for='.$element['id'].'>'.$key."</label>";
                                     $str_datos.='<input type="'.$element['type'].'" name="'.$element['name'].'"  id="'.$element['id'].'" class="form-control"';
@@ -62,6 +53,11 @@
                                     $str_datos.="</select>";
                                         
                                 }
+                                elseif ($element['type'] == 'textArea') {
+                                    $str_datos.='<label for='.$element['id'].'>'.$key."</label>";
+                                    $str_datos.='<textarea class="form-control" id="diagnosticPatient" name="diagnostic" rows="5" cols="40" required></textarea>';
+                                
+                                }
                                 else{
                                      
                                     $str_datos.='<p>'.$element['value'].'</p>';
@@ -71,22 +67,19 @@
                             
                             }
                         
+                        if($propertiesForm['confirmation'] == true){
+                           $str_datos.='<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>';
+                           $str_datos.='<button type="submit" class="btn btn-danger">Si</button>';
+                        }
+                        else{
+                            $str_datos.='<button type="submit" class="btn btn-primary">'.$propertiesForm['buttonName']."</button>";
+                            $str_datos.='<br>';
+                            $str_datos.='<br>';
+                        }
 
-                    $str_datos.="</div>";
-                    $str_datos.='<div class="modal-footer">';
+            $str_datos.="</div>";
                     
-                    if($propertiesForm['confirmation'] == true){
-                       $str_datos.='<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>';
-                       $str_datos.='<button type="submit" class="btn btn-danger">Si</button>';
-                    }
-                    else{
-                        $str_datos.='<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>';
-                        $str_datos.='<button type="submit" id="btn-prueba" class="btn btn-primary">'.$propertiesForm['buttonName']."</button>";
-                        $str_datos.="</div>";
-                    }
-                $str_datos.="</div>";
-             $str_datos.="</div>";
-        $str_datos.="</form>";
+          $str_datos.="</form>";
 
         echo $str_datos; 
         

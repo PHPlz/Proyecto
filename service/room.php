@@ -1,6 +1,6 @@
 <?php
 
-    include_once '../DBStuff/dbstuff.php';
+    include_once '../../DBStuff/dbstuff.php';
     
     class Room{
 
@@ -13,37 +13,28 @@
         
     }
 
-    function findAll(){  
+   
+
+    function findAllRooms(){  
 
          $sql =
          "SELECT *
          FROM habitaciones;";
          $dataRooms = doQueryAllRows($sql);
-         $dataBeds = array();
-
          if( $dataRooms != null){
+            $i = 0;
             foreach($dataRooms as $element){
                     $id = $element['ID'];
                     $sqlBeds =
                     "SELECT ID
-                    FROM camas WHERE idRoom = $id;";
+                    FROM camas WHERE idRoom = $id AND activo = 1;";
                     $dataBeds = doQueryAllRows($sqlBeds);
-                    array_push($dataRooms, $dataBeds);
-                    
-            }
+                    array_push($dataRooms[$i], $dataBeds);
+                    ++$i;
+             }
           }
-
-    
-        for($i = 0; $i < count($dataRooms); ++$i){
-             echo "aqui toy";
-             echo count($dataRooms);
-         }
-
-         return $data;
+         return $dataRooms;
     }
 
-
-   
-    findAll();
 
 ?>

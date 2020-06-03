@@ -32,6 +32,9 @@
         <div class='row'>
             <input type="button" value="Inicio" onclick="location.href='index.php'"       class="btn btn-primary">
             <input type="button" value="Habitaciones" onclick="location.href='room.php'"  class="btn btn-primary">
+            <input type="button" value="Pacientes"  onclick="location.href='patient.php'"  class="btn btn-primary">
+            <input type="button" value="Equipos"    onclick="location.href='equip.php'"  class="btn btn-primary">
+            <input type="button" value="Recursos"   onclick="location.href='resources.php'"  class="btn btn-primary">
         </div>
         <?php echo $body; ?>
     </div>

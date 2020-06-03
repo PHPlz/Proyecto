@@ -6,7 +6,7 @@ include_once '../../view/templates/table.php';
 
 $requests = array();
 foreach (AdminSv::fetchRequestsActiveNamed() as $va){
-$requests[] = array('ph', $va['id'],$va['equipo'],$va['paciente'],$va['medico'],$va['cantidad'],$va['fecha'] );
+$requests[] = array('ph', $va['id'],$va['equipo'],$va['paciente'],$va['medico'],$va['email'],$va['cantidad'],$va['fecha'] );
 }
 
 $scripts='';
@@ -22,7 +22,7 @@ $body="";
 $body.="<div class=\"row my-5\">
 <h2 class=\"card-body text-center\">Solicitudes</h2>";
 $tabProperties = array(
-    'header' => array('# solicitud','equipo','paciente','medico','cantidad','fecha solicitud'),
+    'header' => array('# solicitud','equipo','paciente','medico','email','cantidad','fecha solicitud'),
     'select' => false, 
     'actions' => array('edit' => false, 'delete' => false,
         'others' => array( 

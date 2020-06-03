@@ -132,7 +132,7 @@
                 $patientData = array();
                 $queryRows = doQueryAllRows($sql);
                 foreach ($queryRows as $value) {
-                    echo var_dump($value);
+                    //echo var_dump($value);
                     $patientData[$value['id']] =  array();
                 };//if this works rows should be collapsed by patient Id
 
@@ -260,7 +260,7 @@
             global $tables;
             return doQueryAllRows(
             <<<sqlQ
-            SELECT soli.ID AS id, eqp.tipo AS equipo, pat.nombre AS paciente, usr.nombre AS medico  ,soli.cantidad AS cantidad, soli.fechaHora as fecha
+            SELECT soli.ID AS id, eqp.tipo AS equipo, pat.nombre AS paciente, usr.nombre AS medico, usr.mail as email  ,soli.cantidad AS cantidad, soli.fechaHora as fecha
             FROM $tables[6] AS soli
             LEFT JOIN $tables[0] AS usr ON usr.ID = soli.idMedico 
             LEFT JOIN $tables[1] AS pat ON pat.ID = soli.idPaciente 

@@ -11,8 +11,9 @@ $body="";
 
 
 $patients = array();
-foreach (AdminSv::fetchRegisters2() as $va){
-$patients[] =  array(array('ph'),$va[''], $va['nombre'], $va[''], );
+foreach (AdminSv::fetchRegisters2() as $k => $va){
+$patients[] =  array('ph',$k,$va['nombre'],$va['idCama'],$va['idRoom'],$va['idMed'],$va['nombreDoc'], implode(",",$va['equipo'] ) );
+ 
 //pacientes, su cama, habitación asignada y
 //el médico tratante. También podrá consultar los equipos asignados.
 }
@@ -25,9 +26,9 @@ $patients[] =  array(array('ph'),$va[''], $va['nombre'], $va[''], );
 
 //patients
 $body.="<div class=\"row my-5\">
-<h2 class=\"card-body text-center\">Información de todos los pacientes</h2>";
+<h2 class=\"card-body text-center\">Información de todos los pacientes activos</h2>";
 $tabProperties = array(
-    'header' => array('# solicitud','equipo','paciente','medico','cantidad','fecha solicitud'),
+    'header' => array('id','nombre','idCama','idRoom','idMed','nombreDoc','equipos'),
     'select' => false, 
     'actions' => false/*array('edit' => false, 'delete' => false,
         'others' => array(
@@ -42,4 +43,3 @@ $body.="</div>"; //table
 
 
 include './templateBig.php';
-?>

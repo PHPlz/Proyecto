@@ -134,6 +134,7 @@
                 foreach ($queryRows as $value) {
                     //echo var_dump($value);
                     $patientData[$value['id']] =  array();
+                    $patientData[$value['id']]['equipo'] = array();
                 };//if this works rows should be collapsed by patient Id
 
                 foreach ($queryRows as $value) {

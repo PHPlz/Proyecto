@@ -14,7 +14,7 @@ foreach ($rooms as $value) {
 }
 
 //add room
-$body.= "<div class='row'>
+$body.= "<br><div class='row'>
             <input type=\"button\" value=\"Agregar Habitación\" onclick=\"location.href='admReqHandler.php?type=add-room'\"  class=\"btn btn-primary\">
         </div>";
 

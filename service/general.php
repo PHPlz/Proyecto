@@ -2,15 +2,10 @@
 include_once '../../DBStuff/dbstuff.php';
 function findAllPatientsDoctor(){
        
-    $sqlDoc='SELECT ID
-    FROM usuarios
-    WHERE mail ='."'".$_SESSION['username']."'".';';
-    $idDoc = doQuery2($sqlDoc);
-   
     $sql =
     "SELECT idMedico, ID, nombre, diagnostico, prioridad 
     FROM pacientes 
-    WHERE".$idDoc.";";
+    WHERE idMedico = ".$_SESSION['id'].";";
     $data = doQueryAllRows($sql);
 
     return $data;
@@ -47,8 +42,9 @@ function getDoctorName($mail){
     $sql='SELECT nombre
     FROM usuarios
     WHERE mail ='."'".$mail."'".';';
-    $name = doQuery3($sql);
-    return $name['nombre']; 
+    $name = doQueryAllRows($sql);
+    print_r($name);
+    return $name[0]['nombre']; 
     
 }
 

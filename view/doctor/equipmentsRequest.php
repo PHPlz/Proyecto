@@ -24,6 +24,11 @@
         <title>Pacientes</title>
     </head>
 <body>
+<?php
+  include('menu-doctor.php');
+  createMenuDoctor();
+
+?>
 <div class="equipmentsForm">
             <form action="../../service/equipmentRequest.php" method="post">
                           <div class="content" style="width: 30%; margin-left: 20px; margin-top: 15px;">
@@ -34,7 +39,7 @@
                                 <label for="namePatient">Médico:</label>
                                 <?php
                                   include_once('../../service/general.php');
-                                  $name = getDoctorName($_SESSION['username']);
+                                  $name = $_SESSION['username'];
                                   echo '<input type="text" class="form-control" id="nameDoctor" name="nameDoctor" value="'.$name.'" required readonly>';
                                 ?>
                                  

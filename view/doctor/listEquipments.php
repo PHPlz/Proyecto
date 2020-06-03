@@ -25,6 +25,11 @@
         <title>Pacientes</title>
     </head>
 <body>
+<?php
+  include('menu-doctor.php');
+  createMenuDoctor();
+
+?>    
 <div class="equipmentsForm">   
                       <form action="../../service/equipmentsRequest.php" method="post">
                           <div class="content" style="width: 30%; margin-left: 20px; margin-top: 15px;">

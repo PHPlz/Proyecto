@@ -21,12 +21,7 @@
 
             $resourcesR = explode(" ",$resources);
             echo $resourcesR[1];
-             
-            $sqlDoc='SELECT ID
-            FROM usuarios
-            WHERE mail ='."'".$_SESSION['username']."'".';';
-            $idDoc = doQueryAllRows($sqlDoc);
-   
+        
 
             $r = array();
             $data = array();
@@ -49,7 +44,7 @@
             $fields = array('idEquipo','idPaciente', 'idMedico', 'cantidad', 'estado', 'fechaHora' );
             foreach ( $r as $e){
                foreach ( $e as $element){ 
-                  $values = array($element['ID'],$id,$idDoc[0]['ID'],"'".$element['und_total']."'","'".'abierta'."'", "'".$date."'");
+                  $values = array($element['ID'],$id,$_SESSION['id'],"'".$element['und_total']."'","'".'abierta'."'", "'".$date."'");
                   doQuery(insertTableSQl('soli_equipos', $fields, $values)); 
                }
                 
@@ -59,8 +54,8 @@
             echo '<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>';
             echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>';       
             echo '<script type="text/javascript" src="../view/js/resources.js"></script>';
-            $href = "'../view/doctor/resourcesRequest.php'";
-           // echo '<input type="button"  onclick="location.href='.$href.'" id="btn-cfm" data-target="#confirmationModal" data-toggle="modal" >'; 
+            $href = "'../view/doctor/equipmentsRequest.php'";
+            echo '<input type="button"  onclick="location.href='.$href.'" id="btn-cfm" data-target="#confirmationModal" data-toggle="modal" >'; 
                             
      }
 

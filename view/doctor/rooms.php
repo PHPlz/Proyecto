@@ -8,29 +8,32 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
-      
+        
+        <!--JQUERY-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
-        
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
-
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         
         <!-- Validation JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>       
-     
+        
         
         <!-- Rooms Form JS -->
-        <script type="text/javascript" src="../js/rooms.js"></script>
+        <script type="text/javascript" src="../js/roomsD.js"></script>
 
         <title>Habitaciones</title>
     </head>
 
 
 <body>
+<?php
+  include('menu-doctor.php');
+  createMenuDoctor();
+
+?>
     <div class="container">
       <div class="row my-5">
           <h2 class="card-body text-center">Habitaciones</h2>
@@ -38,7 +41,6 @@
         
                     include('../templates/table.php');
                     include('../../service/room.php');
-                
                     $propertiesTable = 
                     array('header' => array('Habitación','Camas'), 'select' => true, 
                           'actions' => array() ); 
@@ -46,11 +48,13 @@
                    // array('header' => array('Habitación','Camas'), 'actions' => array( 'edit' => true, 'delete' => true ), 'select' => true);  
                     $contentTable = findAllRooms();
                     createTable($propertiesTable, $contentTable);
+
+                             
+                          
                     //echo 'Propietario script actual: ' . get_current_user();
                 ?>
         </div>
     </div>
-  
     <div class="patientForm">
             <form action="../../service/patient.php" method="post">
                 <div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

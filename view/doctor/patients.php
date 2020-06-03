@@ -25,6 +25,11 @@
         <title>Pacientes</title>
     </head>
 <body>
+<?php
+  include('menu-doctor.php');
+  createMenuDoctor();
+
+?>
 
 <div class="container">
       <div class="row my-5">

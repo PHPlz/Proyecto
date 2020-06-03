@@ -41,15 +41,11 @@
     
     function assignPatientBed($id, $name, $date, $priority, $diagnostic, $duration, $idBed ){
            
-        $sqlDoc='SELECT ID
-        FROM usuarios
-        WHERE mail ='."'".$_SESSION['username']."'".';';
-        $idDoc = doQuery2($sqlDoc);
-        echo $idDoc;
+    
         
-        if( $idDoc != null){
+        if( $_SESSION['id'] != null){
             $fieldsPatient = array('ID', 'nombre','diagnostico', 'prioridad', 'idMedico' );
-            $valuesPatient = array($id, "'".$name."'", "'".$diagnostic."'", "'".$priority."'", $idDoc);
+            $valuesPatient = array($id, "'".$name."'", "'".$diagnostic."'", "'".$priority."'", $_SESSION['id']);
             doQuery(insertTableSQl('pacientes', $fieldsPatient, $valuesPatient));
             
             $fieldsRegister = array('fh_ingreso','duracion','idPaciente','idCama');

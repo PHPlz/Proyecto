@@ -52,4 +52,54 @@ function getDoctorName($mail){
     
 }
 
+function getEquipmentsRequest($id){
+    $sql =
+    "SELECT tipo, cantidad
+    FROM equipos
+    JOIN soli_equipos
+    ON equipos.ID = soli_equipos.idEquipo AND soli_equipos.idPaciente = "."'".$id."';";
+    $data = doQueryAllRows($sql);
+    return $data;
+}
+
+function getEquipmentsRequestUnd($id){
+    
+    $sql =
+    "SELECT cantidad
+    FROM soli_equipos
+    WHERE idPaciente = "."'".$id."';";
+    $data = doQueryAllRows($sql);
+    
+    $total = 0;
+    foreach( $data as $element){
+            $total += $element['cantidad'];
+    }
+
+    return $total;
+}
+
+function findAllEquipments(){
+       
+    $sql='SELECT tipo, und_total
+    FROM equipos
+    WHERE und_total > 0;';
+
+    $data = doQueryAllRows($sql);
+    print_r($data);
+    return $data;
+
+}
+
+function findAllEquipmentsUndT(){
+   
+    $sql='SELECT und_total
+    FROM equipos
+    WHERE und_total > 0;';
+
+    $data = doQueryAllRows($sql);
+
+    return $data;
+
+}
+
 ?>

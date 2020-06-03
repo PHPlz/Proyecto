@@ -41,15 +41,12 @@
                 
                     $propertiesTable = 
                     array('header' => array('Habitación','Camas'), 'select' => true, 
-                          'actions' => array('edit' => false, 'delete' => false,
-                          'others' => array( 
-                                      array('id' => 'btn-refuse', 'name' => 'Rechazar'), 
-                                      array('id' => 'btn-accept', 'name' => 'Aceptar') ) ) ); 
+                          'actions' => array() ); 
                                       
                    // array('header' => array('Habitación','Camas'), 'actions' => array( 'edit' => true, 'delete' => true ), 'select' => true);  
                     $contentTable = findAllRooms();
                     createTable($propertiesTable, $contentTable);
-                    echo 'Propietario script actual: ' . get_current_user();
+                    //echo 'Propietario script actual: ' . get_current_user();
                 ?>
         </div>
     </div>

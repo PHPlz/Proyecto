@@ -3,7 +3,8 @@
     function createModal($propertiesForm, $contentModal){
 
         $str_datos = "";
-
+        
+        $str_datos.='<script type="text/javascript" src="../js/equipments.js"></script>';
         $str_datos.='<form action="'.$propertiesForm['action'].'" method="'.$propertiesForm['method'].'">';
           $str_datos.='<div class="modal fade" id="'.$propertiesForm['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
                $str_datos.='<div class="modal-dialog" role="document">';
@@ -76,8 +77,8 @@
                     $str_datos.='<div class="modal-footer">';
                     
                     if($propertiesForm['confirmation'] == true){
-                       $str_datos.='<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>';
-                       $str_datos.='<button type="submit" class="btn btn-danger">Si</button>';
+                       $str_datos.='<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>';
+                       $str_datos.='<button type="submit" id="btn-alert" class="btn btn-danger">'.$propertiesForm['buttonName'].'</button>';
                     }
                     else{
                         $str_datos.='<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>';

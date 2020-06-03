@@ -10,7 +10,7 @@
                 $str_datos.='<th>'.$propertiesTable['header'][$i]."</th>";
             }
             if($propertiesTable['actions'] != null){
-                $str_datos.='<th>Acciones</th>'; 
+                $str_datos.='<th style="width:23%">Acciones</th>'; 
             }
             $str_datos.='</thead>';
             $str_datos.='<tbody>';
@@ -18,7 +18,7 @@
                 $str_datos.='<tr>';
                 
                 $j = 0;
-                foreach( $element as $elementA ) {
+                foreach( $element as $key => $elementA ) {
                     if( $propertiesTable['select'] == true ){
                        if($j == count($element)-1){
                            $str_datos.='<td><select class="form-control" id="select-data">';
@@ -42,7 +42,8 @@
                     }
 
                     elseif($j != 0){
-                        $str_datos.= '<td>'.$elementA."</td>";
+                        echo $key;
+                        $str_datos.= '<td id="'.$key.'">'.$elementA."</td>";
                     }
 
                     ++$j;

@@ -1,7 +1,7 @@
 <?php
-   
+
    function createTable($propertiesTable, $contentTable){
-          
+
             $str_datos = "";
             $str_datos.='<table class="table table-hover table-bordered">';
             $str_datos.='<thead>';
@@ -10,47 +10,49 @@
                 $str_datos.='<th>'.$propertiesTable['header'][$i]."</th>";
             }
             if($propertiesTable['actions'] != null){
-                $str_datos.='<th>Acciones</th>'; 
+                $str_datos.='<th style="width:23%">Acciones</th>';
             }
             $str_datos.='</thead>';
             $str_datos.='<tbody>';
+            $i=0;
             foreach($contentTable as $element) {
                 $str_datos.='<tr>';
-                
+
                 $j = 0;
-                foreach( $element as $elementA ) {
+                foreach( $element as $key => $elementA ) {
                     if( $propertiesTable['select'] == true ){
                        if($j == count($element)-1){
-                           $str_datos.='<td><select class="form-control" id="select-data">';
+                           echo $j;
+                           $str_datos.='<td><select class="form-control" id="selectData1'.$i.'">';
                            $str_datos.="<option selected>Seleccione</option>";
                            if($elementA != null || empty($elementA)){
                               foreach( $elementA as $arrayS) {
-                                 foreach( $arrayS as $elementS) {      
-                                          $str_datos.='<option>'.$elementS."</option>";    
-                                 }       
+                                 foreach( $arrayS as $elementS) {
+                                          $str_datos.='<option>'.$elementS."</option>";
+                                 }
                               }
                             }
-                                
+
                            $str_datos.="</select></td>";
                         }
 
                         elseif($j == 0){
                             $str_datos.= '<td>'.$elementA."</td>";
                         }
-                      
-                       
+
+
                     }
 
                     elseif($j != 0){
-                        $str_datos.= '<td>'.$elementA."</td>";
+                        $str_datos.= '<td id="'.$key.'">'.$elementA."</td>";
                     }
 
                     ++$j;
-                
+
                 }
-                 
+
                 if($propertiesTable['actions'] != null){
-                   
+
                    $str_datos.='<td>';
                    if($propertiesTable['actions']['edit'] == true){
                       $str_datos.='
@@ -64,19 +66,20 @@
                        foreach($propertiesTable['actions']['others'] as $button)
                        $str_datos.='
                        <button type="submit" class="btn btn-primary" id="'.$button['id'].'">'.$button['name'].'</button>';
-                    }  
+                    }
 
                    $str_datos.="</td>";
                 }
-                
+
                 $str_datos.= "</tr>";
+                ++$i;
             }
 
             $str_datos.='<tbody>';
             $str_datos.= "</table>";
 
-            echo $str_datos; 
-    
+            echo $str_datos;
+
    }
 
 

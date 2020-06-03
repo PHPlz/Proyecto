@@ -25,6 +25,11 @@
         <title>Pacientes</title>
     </head>
 <body>
+<?php
+  include('menu-doctor.php');
+  createMenuDoctor();
+
+?>
 
 <div class="container">
       <div class="row my-5">
@@ -35,8 +40,11 @@
                     include('../../service/general.php');
                 
                     $propertiesTable = 
-                    array('header' => array('Cédula','Nombre','Diagnóstico','Prioridad'), 'actions' => array(), 'select' => false); 
-                   // array('header' => array('Habitación','Camas'), 'actions' => array( 'edit' => true, 'delete' => true ), 'select' => true);  
+                    array('header' => array('Cédula','Nombre','Diagnóstico','Prioridad'),'select' => false, 
+                          'actions' => array('edit' => false, 'delete' => false, 
+                                             'others' => array( array('id' => 'btn-resources-r', 'name' => 'Solicitar Recursos'),
+                                              array( 'id' => 'btn-equipments', 'name' => 'Equipos') ) )
+                    ); 
                     $contentTable = findAllPatientsDoctor();
                     createTable($propertiesTable, $contentTable);
                ?>
@@ -44,13 +52,9 @@
         </div>
 </div>
 
-
 <?php
 
     /*Example Alert
-
-          
-                
           echo '<div>';
           $propertiesForm = 
           array( 'action' => '../../service/patient.php', 'method' =>  'post', 'id' => 'patientModal', 'title' => 'Pacientes', 'buttonName' => 'Guardar', 'confirmation' => false );
@@ -72,7 +76,7 @@
               );
           echo createForm($propertiesForm, $contentModal);
           echo '</div>';
-        ?>*/
+        ?>
 
     include_once ('../templates/modal.php');
     $propertiesFormDelete = 
@@ -81,7 +85,7 @@
         array( 'Confirmación' => array( 'type' => 'label', 'value' => 'Esta seguro que quiere eliminar este elemento' )); 
     echo '<div>';
     createModal($propertiesFormDelete, $contentModalDelete); 
-    echo '</div>';    
+    echo '</div>';    */
     
 ?>
 </body>

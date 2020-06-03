@@ -109,14 +109,14 @@ function doQueryLogin($email, $pwd)
         setcookie('email',  $row['mail']);
         setcookie('rol',    $row['rol']);
         setcookie('ID',     $row['ID']);
-        
+
         $_SESSION['username'] = $row['nombre'];
         $_SESSION['email'] = $row['mail'];
         $_SESSION['rol'] = $row['rol'];
         $_SESSION['id'] = $row['ID'];
 
     } else {
-        
+
         echo mysqli_error($conn);
         $ret = false;
     }
@@ -233,14 +233,14 @@ function setUpDB()
     //>> sample insert
     doQuery(insertTableSQl( // create insertion sql()  -> do query ()
         $GLOBALS['tables'][0], // get table 0 name ; aka first arg
-         $GLOBALS["fields_{$GLOBALS['tables'][0]}"], // FIELDS 
+         $GLOBALS["fields_{$GLOBALS['tables'][0]}"], // FIELDS
         array("'admin','admin@adminmail.fake','admin','" . crypter("madmin") . "'") ) ); // VALUES
-    } 
+    }
 
 function loadTestData(){
-    //habitaciones 
+    //habitaciones
     global $tables;
-    for ($i=0; $i < 30 ; $i++) { 
+    for ($i=0; $i < 30 ; $i++) {
         echo ";ins";
         doQuery(insertTableSQl($tables[4],array(),array()) );
     }

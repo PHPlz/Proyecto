@@ -1,24 +1,24 @@
-$(document).on('click', '#select-data', function() {
-      
-      $(document).mouseup( waitForCloseClick );
-      var id = $('#select-data').val();
-      if( id != 'Seleccione'){
-         $('#patientModal').modal();
-      }
-        
-});
+$(document).on('click', 'select', function() {
+    var i = $(this).closest('tr').index(); 
+    console.log(i);
+    $('#selectData1'+i).mouseup( waitForCloseClick );
+
+
+});        
+
 
 function waitForCloseClick() {
-    $(document).unbind( 'mouseup' );
+    $('#selectData11').unbind( 'mouseup' );
     setTimeout( function(){
-      var id = $('#select-data').val();
+      var id = $('#selectData11').val();
+      console.log(id);
       if( id != 'Seleccione'){
           $('#idBedPatient').val(id); 
           $('#patientModal').modal();
           //location.href = 'patients.php/?idBed='+id;
       }
       
-    }, 1);
+    }, 3);
     return false;
 }
 

@@ -7,6 +7,10 @@ if (!empty($_GET)){
             AdminSv::addRoom();
             header("Location:room.php");
             break;
+        case 'add-bed':
+              AdminSv::addBed($_GET['id']);
+              header("Location:room.php");
+              break;
         case 'set-db':
             AdminSv::adminResetDb();
             header("Location:index.php");

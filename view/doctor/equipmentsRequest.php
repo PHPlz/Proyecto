@@ -19,8 +19,7 @@
         <!-- Validation JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>       
         
-        <!-- Rooms Form JS -->
-        <script type="text/javascript" src="../js/patients.js"></script>
+
 
         <title>Pacientes</title>
     </head>
@@ -29,23 +28,19 @@
   include('menu-doctor.php');
   createMenuDoctor();
 
-?>  
-<div class="resourcesForm">
-            <form action="../../service/resourceRequest.php" method="post">
-              
-        
-                          
-
+?>
+<div class="equipmentsForm">
+            <form action="../../service/equipmentRequest.php" method="post">
                           <div class="content" style="width: 30%; margin-left: 20px; margin-top: 15px;">
                             <div class="form-group col-md-12">
-                            <h4 class="modal-title">Solicitar Recursos</h4>
+                            <h4 class="modal-title">Solicitar Equipo</h4>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="namePatient">Médico:</label>
                                 <?php
                                   include_once('../../service/general.php');
                                   $name = $_SESSION['username'];
-                                   echo '<input type="text" class="form-control" id="nameDoctor" name="nameDoctor" value="'.$name.'" required readonly>';
+                                  echo '<input type="text" class="form-control" id="nameDoctor" name="nameDoctor" value="'.$name.'" required readonly>';
                                 ?>
                                  
                             </div>
@@ -57,26 +52,34 @@
                                   $priority =  $_SESSION["pPatient"];
                                   echo '<input type="text" class="form-control" value="'.$name.'" id="namePatient" name="namePatient" required readonly>'; 
                                   echo '<input type="number" class="form-control" value="'.$id.'" id="iPatient" name="iPatient" required readonly hidden>';
-                    
+                                  echo '<input type="text" class="form-control" value="'.$priority.'" id="pPatient" name="pPatient" required readonly hidden>';
                                 ?> 
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="date">Fecha y Hora:</label>
                                 <?php
+                                   include_once('../../service/general.php');
+                                   
                                    date_default_timezone_set('America/Bogota');
+                                   
                                    $today = date('Y-m-d H:i:s A');
                                    echo '<input type="text" class="form-control" value="'.$today.'"id="date" name="date" required readonly>'; 
+                                   echo '<input type="number" class="form-control" value="'.getEquipmentsRequestUnd($_SESSION["iPatient"]).'" id="qPatient" required readonly hidden>';
                                 ?>
                             </div>
                             <div class="form-group col-md-12" style=" width: 75%;">
-                                <label for="selectResources">Recursos disponibles:</label>
+                                <label for="selectResources">Equipos disponibles:</label>
                                 <select id="selectResources" class="form-control">
                                   <option selected>Seleccione</option>
                                   <?php
                                      include_once('../../service/general.php');
-                                      foreach( findAllResources() as $element){
+                                      foreach( findAllEquipments() as $element){
+                                           $i = 0;
                                            foreach($element as $resource){
-                                                 echo "<option>$resource</option>";
+                                                 if( $i == 0){
+                                                     echo "<option>".$resource."</option>";
+                                                 }
+                                                 ++$i;
                                            }
                                               
                                       }
@@ -90,7 +93,7 @@
                             <table class="table table-hover table-bordered" id="tableResources">
                                 <thead>
                                     <tr>
-                                        <th>Recurso</th>
+                                        <th>Equipo</th>
                                         <th>Cantidad</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -106,11 +109,11 @@
                                   <option selected>Seleccione</option>
                                   <?php
                                      include_once('../../service/general.php');
-                                      foreach( findAllResourcesUnd() as $element){
-                                           $i=1;
+        
+                                      foreach( findAllEquipmentsUndT() as $element){
                                            foreach($element as $resource){
                                                  echo '<option>'.$resource.'</option>';
-                                                 ++$i;
+                                                 
                                            }
                                               
                                       }
@@ -134,19 +137,19 @@
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Solicitar Recursos</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Solicitar Equipo</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group col-md-12">
-                                <label for="namePatient">Recurso:</label>
+                                <label for="namePatient">Equipo:</label>
                                 <input type="text" class="form-control" id="nameR" required readonly> 
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="namePatient">Cantidad Disponible:</label>
-                                <input type="number" class="form-control" id="quantityD" required readonly> 
+                                <input type="number" class="form-control" id="quantityD" name="quantityD" required readonly> 
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="namePatient">Cantidad Requerida:</label>
@@ -169,9 +172,9 @@
 
     include_once ('../templates/modal.php');
     $propertiesFormC = 
-    array( 'action' =>  ' ', 'method' =>  ' ', 'id' => 'confirmationModal', 'title' => 'Confirmación', 'buttonName' => 'Aceptar', 'confirmation' => true, 'script' => '' );
+    array( 'action' =>  ' ', 'method' =>  ' ', 'id' => 'alertModal', 'title' => 'Alerta', 'buttonName' => 'Aceptar', 'confirmation' => true, 'script' => '<script type="text/javascript" src="../js/equipments.js"></script>' );
     $contentModalC = 
-        array( 'Confirmación' => array( 'type' => 'label', 'value' => 'La solicitud se envio satisfactoriamente.' )); 
+        array( 'Confirmación' => array( 'type' => 'label', 'value' => 'Ha superado la cantidad máxima de equipos que puede solicitar para un paciente con prioridad '.$_SESSION["pPatient"].'.' )); 
     echo '<div>';
     createModal($propertiesFormC, $contentModalC); 
     echo '</div>';    

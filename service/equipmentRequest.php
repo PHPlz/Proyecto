@@ -49,8 +49,8 @@
             $fields = array('idEquipo','idPaciente', 'idMedico', 'cantidad', 'estado', 'fechaHora' );
             foreach ( $r as $e){
                foreach ( $e as $element){ 
-                  $values = array($element['ID'],$id,$idDoc[0]['ID'],$element['und_total'],"'".'abierta'."'", "'".$date."'");
-                  doQuery(insertTableSQl('soli_recursos', $fields, $values)); 
+                  $values = array($element['ID'],$id,$idDoc[0]['ID'],"'".$element['und_total']."'","'".'abierta'."'", "'".$date."'");
+                  doQuery(insertTableSQl('soli_equipos', $fields, $values)); 
                }
                 
             }

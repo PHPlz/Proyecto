@@ -81,7 +81,7 @@
 
     include_once ('../templates/modal.php');
     $propertiesFormC = 
-    array( 'action' =>  ' ', 'method' =>  ' ', 'id' => 'confirmationModal', 'title' => 'Confirmación', 'buttonName' => 'Aceptar', 'confirmation' => true );
+    array( 'action' =>  ' ', 'method' =>  ' ', 'id' => 'confirmationModal', 'title' => 'Confirmación', 'buttonName' => 'Aceptar', 'confirmation' => true, 'script' => null );
     $contentModalC = 
         array( 'Confirmación' => array( 'type' => 'label', 'value' => 'La solicitud se envio satisfactoriamente.' )); 
     echo '<div>';

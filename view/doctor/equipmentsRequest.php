@@ -167,7 +167,7 @@
 
     include_once ('../templates/modal.php');
     $propertiesFormC = 
-    array( 'action' =>  ' ', 'method' =>  ' ', 'id' => 'alertModal', 'title' => 'Alerta', 'buttonName' => 'Aceptar', 'confirmation' => true );
+    array( 'action' =>  ' ', 'method' =>  ' ', 'id' => 'alertModal', 'title' => 'Alerta', 'buttonName' => 'Aceptar', 'confirmation' => true, 'script' => '<script type="text/javascript" src="../js/equipments.js"></script>' );
     $contentModalC = 
         array( 'Confirmación' => array( 'type' => 'label', 'value' => 'Ha superado la cantidad máxima de equipos que puede solicitar para un paciente con prioridad '.$_SESSION["pPatient"].'.' )); 
     echo '<div>';

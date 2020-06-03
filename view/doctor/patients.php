@@ -71,7 +71,7 @@
               );
           echo createForm($propertiesForm, $contentModal);
           echo '</div>';
-        ?>*/
+        ?>
 
     include_once ('../templates/modal.php');
     $propertiesFormDelete = 
@@ -80,7 +80,7 @@
         array( 'Confirmación' => array( 'type' => 'label', 'value' => 'Esta seguro que quiere eliminar este elemento' )); 
     echo '<div>';
     createModal($propertiesFormDelete, $contentModalDelete); 
-    echo '</div>';    
+    echo '</div>';    */
     
 ?>
 </body>

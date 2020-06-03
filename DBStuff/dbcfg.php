@@ -1,16 +1,18 @@
 <?php
-/* Geraldine DB
+/* Geraldine DB */
 define('db_un', 'admindb');
 define('db_pwd', 'rA7VvZTcI4NlQrfI');
 define('db_host', 'localhost');
 define('db_name', 'miBD');
-*/
 
+
+/*
 //Ale db
 define('db_un', 'lain');
 define('db_pwd', '48OAWAjszUKSehJn');
 define('db_host', 'localhost');
 define('db_name', 'fancyshinyproyectdb');
+*/
 
 // DB stuff ahead:
 

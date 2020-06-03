@@ -25,6 +25,11 @@
         <title>Pacientes</title>
     </head>
 <body>
+<?php
+  include('menu-doctor.php');
+  createMenuDoctor();
+
+?>  
 <div class="resourcesForm">
             <form action="../../service/resourceRequest.php" method="post">
               
@@ -39,8 +44,8 @@
                                 <label for="namePatient">Médico:</label>
                                 <?php
                                   include_once('../../service/general.php');
-                                  $name = getDoctorName($_SESSION['username']);
-                                  echo '<input type="text" class="form-control" id="nameDoctor" name="nameDoctor" value="'.$name.'" required readonly>';
+                                  $name = $_SESSION['username'];
+                                   echo '<input type="text" class="form-control" id="nameDoctor" name="nameDoctor" value="'.$name.'" required readonly>';
                                 ?>
                                  
                             </div>
@@ -164,7 +169,7 @@
 
     include_once ('../templates/modal.php');
     $propertiesFormC = 
-    array( 'action' =>  ' ', 'method' =>  ' ', 'id' => 'confirmationModal', 'title' => 'Confirmación', 'buttonName' => 'Aceptar', 'confirmation' => true );
+    array( 'action' =>  ' ', 'method' =>  ' ', 'id' => 'confirmationModal', 'title' => 'Confirmación', 'buttonName' => 'Aceptar', 'confirmation' => true, 'script' => '' );
     $contentModalC = 
         array( 'Confirmación' => array( 'type' => 'label', 'value' => 'La solicitud se envio satisfactoriamente.' )); 
     echo '<div>';

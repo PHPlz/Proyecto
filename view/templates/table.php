@@ -14,6 +14,7 @@
             }
             $str_datos.='</thead>';
             $str_datos.='<tbody>';
+            $i=0;
             foreach($contentTable as $element) {
                 $str_datos.='<tr>';
                 
@@ -21,7 +22,8 @@
                 foreach( $element as $key => $elementA ) {
                     if( $propertiesTable['select'] == true ){
                        if($j == count($element)-1){
-                           $str_datos.='<td><select class="form-control" id="select-data">';
+                           echo $j;
+                           $str_datos.='<td><select class="form-control" id="selectData1'.$i.'">';
                            $str_datos.="<option selected>Seleccione</option>";
                            if($elementA != null || empty($elementA)){
                               foreach( $elementA as $arrayS) {
@@ -42,7 +44,6 @@
                     }
 
                     elseif($j != 0){
-                        echo $key;
                         $str_datos.= '<td id="'.$key.'">'.$elementA."</td>";
                     }
 
@@ -71,6 +72,7 @@
                 }
                 
                 $str_datos.= "</tr>";
+                ++$i;
             }
 
             $str_datos.='<tbody>';

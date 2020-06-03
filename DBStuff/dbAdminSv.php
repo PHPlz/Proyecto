@@ -1,6 +1,6 @@
        <?php
 
-    include_once './dbstuff.php';
+    include_once 'dbstuff.php';
 
     function verifyAdmin()
     {//if wanna make it harder verify w db
@@ -255,6 +255,22 @@
             global $tables;
             return doQueryAllRows("SELECT * FROM $tables[6] WHERE estado = 'abierta'");
         }
+        static function fetchRequestsActiveNamed()
+        {
+            global $tables;
+            return doQueryAllRows(
+            <<<sqlQ
+            SELECT soli.ID AS id, eqp.tipo AS equipo, pat.nombre AS paciente, usr.nombre AS medico  ,soli.cantidad AS cantidad, soli.fechaHora as fecha
+            FROM $tables[6] AS soli
+            LEFT JOIN $tables[0] AS usr ON usr.ID = soli.idMedico 
+            LEFT JOIN $tables[1] AS pat ON pat.ID = soli.idPaciente 
+            LEFT JOIN $tables[2] AS eqp ON eqp.ID = soli.idEquipo  
+            WHERE estado = 'abierta'
+            sqlQ
+            );
+        }
+
+
         static function processRequest($reqId, $isApproved)
         {
             global $tables;
@@ -314,4 +330,4 @@ function testAdmnSv(){
     echo 'testing...8';
 }
 
-testAdmnSv();
+//testAdmnSv();

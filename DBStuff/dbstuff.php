@@ -105,10 +105,15 @@ function doQueryLogin($email, $pwd)
         //echo "{$row['nombre']},{$row['rol']},{$row['mail']}";
         $ret =  array($row['nombre'], $row['mail'], $row['rol']);
 
-        setcookie('nombre',$row['nombre']);
-        setcookie('email',$row['mail']);
-        setcookie('rol',$row['rol']);
-        setcookie('ID',$row['ID']);
+        setcookie('nombre', $row['nombre']);
+        setcookie('email',  $row['mail']);
+        setcookie('rol',    $row['rol']);
+        setcookie('ID',     $row['ID']);
+        
+        $_SESSION['username'] = $row['nombre'];
+        $_SESSION['email'] = $row['mail'];
+        $_SESSION['rol'] = $row['rol'];
+        $_SESSION['id'] = $row['ID'];
 
     } else {
         

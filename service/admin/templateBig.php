@@ -30,16 +30,30 @@
 
 
 <body>
-    <div class="container">
-        <div class='row'>
-            <input type="button" value="Inicio" onclick="location.href='index.php'"       class="btn btn-primary">
-            <input type="button" value="Habitaciones" onclick="location.href='room.php'"  class="btn btn-primary">
-            <input type="button" value="Pacientes"  onclick="location.href='patient.php'"  class="btn btn-primary">
-            <input type="button" value="Equipos"    onclick="location.href='equip.php'"  class="btn btn-primary">
-            <input type="button" value="Recursos"   onclick="location.href='resources.php'"  class="btn btn-primary">
-        </div>
+
+    <?php
+      $str_datos = "";
+      $str_datos.='<nav class="navbar navbar-expand-lg navbar-dark bg-primary">';
+      $str_datos.='<a class="navbar-brand" href="index.php">Administrador</a>';
+      $str_datos.='<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">';
+      $str_datos.='<span class="navbar-toggler-icon"></span>';
+      $str_datos.='  </button>';
+      $str_datos.='  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">';
+      $str_datos.='    <div class="navbar-nav">';
+      $str_datos.='      <a class="nav-item nav-link active" href="patients.php">Pacientes <span class="sr-only">(current)</span></a>';
+      $str_datos.='      <a class="nav-item nav-link active" href="rooms.php">Habitaciones</a>';
+      $str_datos.='      <a class="nav-item nav-link active" href="equip.php">Equipos</a>';
+      $str_datos.='      <a class="nav-item nav-link active" href="resources.php">Recursos</a>';
+      $str_datos.='      <a class="nav-item nav-link active" style="float:rigth;" href="../login.html">Logout</a>';
+      $str_datos.='    </div>';
+      $str_datos.='  </div>';
+      $str_datos.='  </nav>';
+      echo $str_datos;
+    ?>
+    <br>
+    <br>
         <?php echo $body; ?>
-    </div>
+
 
 </body>
 

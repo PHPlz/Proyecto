@@ -35,9 +35,9 @@
             return doQuery("UPDATE $tables[0] SET rol = 'admin' WHERE ID = ${data['id']}") ;
                 //$msg = "$_POST[nombre] updated";
             } else {
-                
+
                 $vals= array("'$data[nombre]'" ,"'$data[email]'","'admin'", "'".crypter( $data['password'] )."'");
-                
+
                 return  doQuery(insertTableSQl($tables[0], ${"fields_$tables[0]"} , $vals ) );
             }
         }
@@ -69,7 +69,7 @@
             if (verifyAdmin()) {
                 global $tables;
                 foreach ($tables as  $value) {
-                    global ${"fields_$value"}; // yep getting all tables   
+                    global ${"fields_$value"}; // yep getting all tables
                 }
 
                 $sql = <<<bigQ
@@ -113,7 +113,7 @@
             if (verifyAdmin()) {
                 global $tables;
                 foreach ($tables as  $value) {
-                    global ${"fields_$value"}; // yep getting all tables   
+                    global ${"fields_$value"}; // yep getting all tables
                 }
 
                 $sql = <<<bigQ
@@ -174,7 +174,7 @@
             global $tables;
             return fetchTable($tables[2]);
         }
-        
+
         static function addEquipment($equipName, $units)
         {
             global $tables, ${"fields_$tables[2]"};
@@ -217,7 +217,7 @@
             $eqPrestados = doQuery2("SELECT * FROM $tables[6] WHERE idEquipo = $idEq AND estado = 'prestado' ");
             return $disp > $eqPrestados;
         }
-        
+
         // defaults to 1 equipment w the logged id of logged in
         static function assignEquip($type, $patientId, $idMedic = '',$amount=1){
             if($idMedic = ''){$idMedic = $_COOKIE['ID'];
@@ -226,7 +226,7 @@
             if( AdminSv::verifyDispEquipo($type) ){
                 $fields = array_diff(${"fields_$tables[6]"},array('fechaHora'));
                 $values = array(
-                AdminSv::getEquipoId($type), 
+                AdminSv::getEquipoId($type),
                 $patientId,
                 $idMedic,
                 $amount,
@@ -249,7 +249,7 @@
             global $tables;
             return doQueryAllRows("SELECT * FROM $tables[6]");
         }
-        
+
         static function fetchRequestsActive()
         {
             global $tables;
@@ -262,9 +262,9 @@
             <<<sqlQ
             SELECT soli.ID AS id, eqp.tipo AS equipo, pat.nombre AS paciente, usr.nombre AS medico, usr.mail as email  ,soli.cantidad AS cantidad, soli.fechaHora as fecha
             FROM $tables[6] AS soli
-            LEFT JOIN $tables[0] AS usr ON usr.ID = soli.idMedico 
-            LEFT JOIN $tables[1] AS pat ON pat.ID = soli.idPaciente 
-            LEFT JOIN $tables[2] AS eqp ON eqp.ID = soli.idEquipo  
+            LEFT JOIN $tables[0] AS usr ON usr.ID = soli.idMedico
+            LEFT JOIN $tables[1] AS pat ON pat.ID = soli.idPaciente
+            LEFT JOIN $tables[2] AS eqp ON eqp.ID = soli.idEquipo
             WHERE estado = 'abierta'
             sqlQ
             );
@@ -275,7 +275,7 @@
         {
             global $tables;
             $newState = $isApproved ? "prestado" : "rechazado";
-            return doQuery("UPDATE $tables[6] SET estado = $newState WHERE ID = $reqId");
+            return doQuery("UPDATE $tables[6] SET estado = '$newState' WHERE ID = $reqId;");
         }
 
         static function getEquipoId($type){
@@ -286,7 +286,7 @@
 
     }
 /*
-Un ADMINISTRADOR solamente puede ser agregado por otro administrador. 
+Un ADMINISTRADOR solamente puede ser agregado por otro administrador.
 El sistema inicialmente debe contar con un usuario ADMINISTRADOR por defecto. (SetUpDb se encarga)
 
 Una vez el administrador ingrese contará con un centro de mensajes, el cual debe desplegar si tiene o no mensajes de aprobación de equipos pendientes (message table)
@@ -299,7 +299,7 @@ Una vez el ADMINISTRADOR apruebe o rechace una asignación de equipo, se le envi
 */
 
 function testAdmnSv(){
-    
+
     doQueryLogin('admin@adminmail.fake','madmin');
     if (!isset($_COOKIE['rol'])){ header("Refresh:5"); die();}
     AdminSv::clrcookies();
@@ -308,14 +308,14 @@ function testAdmnSv(){
     echo 'testing...2';
     AdminSv::addAdmin(array('id'=>5 )); //upd w/e
     echo 'testing...3';
-    
+
     AdminSv::addRoom();//25 rooms in test data
-    AdminSv::addRoom();//3 new rooms 
+    AdminSv::addRoom();//3 new rooms
     AdminSv::addRoom();
     echo 'testing...4';
     AdminSv::addBed(6);
     AdminSv::addBed(27);
-    
+
     echo 'testing...5';
     echo var_dump(AdminSv::fetchRegisters());
     echo 'testing...6';
@@ -325,8 +325,8 @@ function testAdmnSv(){
     echo var_dump(AdminSv::fetchEquipments());
     echo "<br><br><br><br>";
     echo 'testing...7';
-    
-    
+
+
     echo 'testing...8';
 }
 

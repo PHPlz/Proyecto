@@ -27,7 +27,7 @@ $tabProperties = array(
     'actions' => array('edit' => false, 'delete' => false,
         'others' => array( 
             array('id' => 'btn-refuse', 'name' => 'Rechazar'), 
-            array('id' => 'btn-accept', 'name' => 'Aceptar') ) ) );
+            array('id' => 'btn-accept', 'name' => 'Aceptar' ) ) ) );
 
 ob_start();
 createTable($tabProperties, $requests);

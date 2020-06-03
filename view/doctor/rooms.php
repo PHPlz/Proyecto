@@ -40,7 +40,12 @@
                     include('../../service/room.php');
                 
                     $propertiesTable = 
-                    array('header' => array('Habitación','Camas'), 'actions' => array(), 'select' => true); 
+                    array('header' => array('Habitación','Camas'), 'select' => true, 
+                          'actions' => array('edit' => false, 'delete' => false,
+                          'others' => array( 
+                                      array('id' => 'btn-refuse', 'name' => 'Rechazar'), 
+                                      array('id' => 'btn-accept', 'name' => 'Aceptar') ) ) ); 
+                                      
                    // array('header' => array('Habitación','Camas'), 'actions' => array( 'edit' => true, 'delete' => true ), 'select' => true);  
                     $contentTable = findAllRooms();
                     createTable($propertiesTable, $contentTable);

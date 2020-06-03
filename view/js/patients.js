@@ -11,7 +11,7 @@ $(document).on('click', 'tbody tr', function() {
     $.ajax({
         data:  {"iPatient" : id, "nPatient" : name, "pPatient" : priority }, //datos que se envian a traves de ajax
         url:   '../../service/resource.php', //archivo que recibe la peticion
-        type:  'get', //método de envio
+        type:  'post', //método de envio
     })
 
    

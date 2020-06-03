@@ -60,9 +60,10 @@
                       $str_datos.='
                       <button class="btn btn-primary" id="btn-deleteModal" data-toggle="modal" data-target="#deleteModal" ><i class="fa fa-trash"></i></button>';
                    }
-                   if($propertiesTable['actions']['others'] == true){
-                      $str_datos.='
-                      <button type="submit" class="btn btn-primary" id="btn-other">Solicitar Recursos</button>';
+                   if($propertiesTable['actions']['others'] != null){
+                       foreach($propertiesTable['actions']['others'] as $button)
+                       $str_datos.='
+                       <button type="submit" class="btn btn-primary" id="'.$button['id'].'">'.$button['name'].'</button>';
                     }  
 
                    $str_datos.="</td>";

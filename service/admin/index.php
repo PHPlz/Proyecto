@@ -11,6 +11,7 @@ $requests[] = array('ph', $va['id'],$va['equipo'],$va['paciente'],$va['medico'],
 
 $scripts='<script type="text/javascript" src="../../view/js/admin.js"></script>';
 $pageTitle='Admin menu';
+//AdminSv::processRequest(1,1);
 $body="";
 //menu
 

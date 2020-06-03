@@ -15,7 +15,7 @@ foreach ($rooms as $value) {
 
 //add room
 $body.= "<div class='row'>
-            <input type=\"button\" value=\"Agregar Habitación\" onclick=\"location.href='admReqHandler.php?type=add-room'\"  class=\"btn btn-primary\">
+            <input type=\"button\" value=\"Agregar Habitación\" id=\"btn-add\"  class=\"btn btn-primary\">
         </div>";
 
 //room table
@@ -35,6 +35,22 @@ ob_end_clean();
 $body.="</div>"; //table
 
 
-
 include './templateBig.php';
+
+echo '<script type="text/javascript" src="../../view/js/roomA.js"></script>';
+
+?>
+
+
+<?php
+/*
+include_once ('../../view/templates/modal.php');
+$propertiesFormC = 
+array( 'action' =>  ' ', 'method' =>  ' ', 'id' => 'addRoomModal', 'title' => 'Alerta', 'buttonName' => 'Aceptar', 'confirmation' => true, 'script' => '<script type="text/javascript" src="../../view/js/roomA.js"></script>' );
+$contentModalC = 
+    array( 'Confirmación' => array( 'type' => 'label', 'value' => 'Ha superado la cantidad máxima de equipos que puede solicitar para un paciente con prioridad ' )); 
+echo '<div>';
+createModal($propertiesFormC, $contentModalC); 
+echo '</div>';    
+*/
 ?>

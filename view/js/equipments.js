@@ -101,3 +101,4 @@ $(document).on('click', '#btn-delete-rs', function(event)  {
      $(this).closest('tr').remove();                      				      
     
 });
+

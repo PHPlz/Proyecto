@@ -55,7 +55,16 @@
             echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>';       
             echo '<script type="text/javascript" src="../view/js/resources.js"></script>';
             $href = "'../view/doctor/equipmentsRequest.php'";
-            echo '<input type="button"  onclick="location.href='.$href.'" id="btn-cfm" data-target="#confirmationModal" data-toggle="modal" >'; 
+            echo '<div style="width: 30%; margin-left: 40px; margin-top: 15px;">';
+            echo '<h2 style="margin-top: 5px; margin-left: 40px">Solicitud Recursos</h2>';   
+            echo '<br>';
+            echo 'La solicitud de equipos se envio satisfactoriamente.';
+            echo '<br>';
+            echo '<br>';
+            echo "<input style=\"margin-left: 130px;\" class=\"btn btn-primary\" onclick=\"location.href='../view/doctor/patients.php'\" type=\"button\" value=\"Aceptar\">";
+            echo "</div>";
+            echo '</div>';
+
                             
      }
 

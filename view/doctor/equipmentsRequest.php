@@ -132,7 +132,7 @@
        </div>
 <!--Modal Quantity -->
        <div class="quantityForm">
-            <form>
+            <form name="add">
                 <div class="modal fade" id="resourcesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
@@ -149,7 +149,7 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="namePatient">Cantidad Disponible:</label>
-                                <input type="number" class="form-control" id="quantityD" required readonly> 
+                                <input type="number" class="form-control" id="quantityD" name="quantityD" required readonly> 
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="namePatient">Cantidad Requerida:</label>

@@ -49,11 +49,12 @@ function getDoctorName($mail){
 }
 
 function getEquipmentsRequest($id){
+    $a = 'prestrado';
     $sql =
     "SELECT tipo, cantidad
     FROM equipos
     JOIN soli_equipos
-    ON equipos.ID = soli_equipos.idEquipo AND soli_equipos.idPaciente = "."'".$id."';";
+    ON equipos.ID = soli_equipos.idEquipo AND estado = '$a' AND soli_equipos.idPaciente = "."'".$id."';";
     $data = doQueryAllRows($sql);
     return $data;
 }

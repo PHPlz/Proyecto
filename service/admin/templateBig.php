@@ -40,11 +40,11 @@
       $str_datos.='  </button>';
       $str_datos.='  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">';
       $str_datos.='    <div class="navbar-nav">';
-      $str_datos.='      <a class="nav-item nav-link active" href="patients.php">Pacientes <span class="sr-only">(current)</span></a>';
-      $str_datos.='      <a class="nav-item nav-link active" href="rooms.php">Habitaciones</a>';
+      $str_datos.='      <a class="nav-item nav-link active" href="patient.php">Pacientes <span class="sr-only">(current)</span></a>';
+      $str_datos.='      <a class="nav-item nav-link active" href="room.php">Habitaciones</a>';
       $str_datos.='      <a class="nav-item nav-link active" href="equip.php">Equipos</a>';
-      $str_datos.='      <a class="nav-item nav-link active" href="resources.php">Recursos</a>';
-      $str_datos.='      <a class="nav-item nav-link active" style="float:rigth;" href="../login.html">Logout</a>';
+      $str_datos.='      <a class="nav-item nav-link active" href="resource.php">Recursos</a>';
+      $str_datos.='      <a class="nav-item nav-link active" style="float:rigth;" href="../../view/login.html">Logout</a>';
       $str_datos.='    </div>';
       $str_datos.='  </div>';
       $str_datos.='  </nav>';

@@ -112,3 +112,22 @@ $(document).on('click', '#btn-delete-es', function(event)  {
     $(this).closest('tr').remove();                      				      
    
 });
+
+$(function() {
+	$("form[name='add']").validate({
+	  rules: {
+		quantity: {
+            required: true,
+            lessThan: $('#quantityD').val()
+		}
+	  },
+	  messages: {
+        quantity: {
+            lessThan:"El número de recursos debe ser menor.",
+		}
+	  },
+	  submitHandler: function(form) {
+		form.submit();
+	  }
+	});
+  });

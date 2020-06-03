@@ -1,11 +1,11 @@
 <?php
-/*
+
 //Geraldine DB
 define('db_un', 'admindb');
 define('db_pwd', 'rA7VvZTcI4NlQrfI');
 define('db_host', 'localhost');
 define('db_name', 'miBD');
-*/
+
 
 /*
 //Ale db
@@ -15,13 +15,13 @@ define('db_host', 'localhost');
 define('db_name', 'fancyshinyproyectdb');
 */
 
-
+/*
   //Pablo DB
   define('db_un', 'pablo');
   define('db_pwd', 'wWu4dyOjvBlLoWpQ');
   define('db_host', 'localhost');
   define('db_name', 'Proyecto');
-
+*/
 
 // DB stuff ahead:
 

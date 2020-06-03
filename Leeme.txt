@@ -1,0 +1,20 @@
+Para configurar el envio de correos electronicos, se modificaron campos en los archivos php.ini y sendmail.ini
+
+En php.ini: 
+
+SMTP=smtp.gmail.com
+smtp_port=587
+sendmail_from = phplz.fmail@gmail.com
+sendmail_path ="\"C:\xampp\sendmail\sendmail.exe\" -t"
+------------------------------------------------------------------
+en sendmail.ini:
+smtp_server=smtp.gmail.com
+smtp_port=587
+smtp_ssl=auto
+error_logfile=error.log
+debug_logfile=debug.log
+
+auth_username=phplz.fmail@gmail.com
+auth_password=qweasd!_7
+-------------------------------------------------------------------
+En la carpeta Archivos ini se encuentran los archivos .ini que se usaron para las pruebas del proyecto

@@ -13,9 +13,10 @@ if(isset($emailL, $passwordL)){
        echo "aaf"; 
     }
     else{
-        $_SESSION['username'] = $user[1];
         if($user[2] == 'medic'){
-           header('Location: ../view/doctor/rooms.php');
+            header('Location: ../view/doctor/rooms.php');
+        }elseif($user[2] == 'admin'){
+            header('Refresh:2;url=./admin/index.php');
         }
         
     }

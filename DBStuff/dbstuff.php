@@ -94,9 +94,9 @@ function doQueryAllRows($sql)
 
 
 //returns  array -> User, Role, C.C. OR false
-function doQueryLogin($user, $pwd)
+function doQueryLogin($email, $pwd)
 {
-    $sql = "SELECT nombre, mail, rol FROM usuarios WHERE mail='$user' AND pass='" . crypter($pwd) . "'";
+    $sql = "SELECT ID, nombre, mail, rol FROM usuarios WHERE mail='$email' AND pass='" . crypter($pwd) . "'";
     //echo "doQloginsql::".$sql;
     $conn = mysqli_connect(db_host, db_un, db_pwd, db_name);
     $res =  mysqli_query($conn, $sql);
@@ -104,7 +104,14 @@ function doQueryLogin($user, $pwd)
         $row = mysqli_fetch_assoc($res);
         //echo "{$row['nombre']},{$row['rol']},{$row['mail']}";
         $ret =  array($row['nombre'], $row['mail'], $row['rol']);
+
+        setcookie('nombre',$row['nombre']);
+        setcookie('email',$row['mail']);
+        setcookie('rol',$row['rol']);
+        setcookie('ID',$row['ID']);
+
     } else {
+        
         echo mysqli_error($conn);
         $ret = false;
     }
@@ -176,7 +183,9 @@ function fetchUsers()
 //fetch table w  condition (default empty)
 function fetchTable($tableName, $condition = array())
 {
-    $sql = "SELECT * FROM $tableName" . empty($condition) ? '' : " WHERE $condition";
+    $sql = "SELECT * FROM $tableName";
+    $sql.= empty($condition) ? '' : " WHERE $condition";
+    echo "<br> SQL:::$sql<br>";
     return doQueryAllRows($sql);
 }
 
@@ -217,10 +226,24 @@ function setUpDB()
 
     //INSERT SAMPLE DATA
     //>> sample insert
-    /*doQuery(insertTableSQl( // create insertion sql()  -> do query ()
+    doQuery(insertTableSQl( // create insertion sql()  -> do query ()
         $GLOBALS['tables'][0], // get table 0 name ; aka first arg
          $GLOBALS["fields_{$GLOBALS['tables'][0]}"], // FIELDS 
         array("'admin','admin@adminmail.fake','admin','" . crypter("madmin") . "'") ) ); // VALUES
-    */} 
+    } 
 
+function loadTestData(){
+    //habitaciones 
+    global $tables;
+    for ($i=0; $i < 30 ; $i++) { 
+        echo ";ins";
+        doQuery(insertTableSQl($tables[4],array(),array()) );
+    }
+    $tdf = fopen( './testDataInserts','r');
+            while(!feof($tdf)){
+                doQuery(fgets($tdf));
+            }
+    fclose($tdf);
+}
 //setUpDB();
+//loadTestData();

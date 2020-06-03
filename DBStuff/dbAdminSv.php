@@ -16,6 +16,13 @@
         {
         }
 
+        static function clrcookies(){
+            setcookie('rol','',  time()-200);
+            setcookie('usuario','',  time()-200);
+            setcookie('email','',  time()-200);
+            setcookie('ID', '',  time()-200);
+        }
+
         //if $data['id'] is set updates user, else creates a new admin
         static function addAdmin($data)
         {
@@ -29,7 +36,7 @@
                 //$msg = "$_POST[nombre] updated";
             } else {
                 
-                $vals= array("'$data[nombre]'" ,"'$data[email]'","'admin'", "'".crypter( $data['password']."'" ));
+                $vals= array("'$data[nombre]'" ,"'$data[email]'","'admin'", "'".crypter( $data['password'] )."'");
                 
                 return  doQuery(insertTableSQl($tables[0], ${"fields_$tables[0]"} , $vals ) );
             }
@@ -54,7 +61,7 @@
             }
         }
 
-        //ok don't know if this will work 
+        //gets patients w active equipment
         static function fetchRegisters()
         { //patients w all extra stuff frkn superjoin goes here shite. ..
             //paciente;cama, habitación,medico, equipos
@@ -72,8 +79,8 @@
                     LEFT JOIN $tables[6] AS soli ON soli.idPaciente = pat.ID
                     LEFT JOIN $tables[2] AS eqp ON eqp.ID = soli.idEquipo
                     LEFT JOIN $tables[0] AS doc ON doc.ID = pat.idMedico
-                    LEFT JOIN $tables[5] AS bed ON bed.ID = bed.reg.idCama
-                WHERE soli.estado='prestado', CURRENT_TIMESTAMP() < TIMESTAMPADD(DAY, reg.duracion ,reg.fh_ingreso)
+                    LEFT JOIN $tables[5] AS bed ON bed.ID = reg.idCama
+                WHERE soli.estado='prestado' AND CURRENT_TIMESTAMP < TIMESTAMPADD(DAY, reg.duracion ,reg.fh_ingreso)
                 bigQ;
                 /*foreach (doQueryAllRows($sql) as $v) {
                     echo var_dump($v);
@@ -95,6 +102,51 @@
                 }// trying to save as:
                 //[patient id => [bedId => id,  ... ,eqptype => [ eq1, eq2, eq3]], ...]
             }
+            return $patientData;
+        }
+
+        // fetchs intern patients w info
+        static function fetchRegisters2()
+        { //patients w all extra stuff frkn superjoin goes here shite. ..
+            //paciente;cama, habitación,medico, equipos
+
+            if (verifyAdmin()) {
+                global $tables;
+                foreach ($tables as  $value) {
+                    global ${"fields_$value"}; // yep getting all tables   
+                }
+
+                $sql = <<<bigQ
+                SELECT pat.ID as id,pat.nombre as nombre, bed.ID as idCama, bed.idRoom as idRoom, doc.ID as idMed, doc.nombre as nombreDoc, eqp.tipo as equipo
+                FROM $tables[8] AS reg
+                    LEFT JOIN $tables[1] AS pat ON pat.ID = reg.idPaciente
+                    LEFT JOIN $tables[6] AS soli ON soli.idPaciente = pat.ID
+                    LEFT JOIN $tables[2] AS eqp ON eqp.ID = soli.idEquipo
+                    LEFT JOIN $tables[0] AS doc ON doc.ID = pat.idMedico
+                    LEFT JOIN $tables[5] AS bed ON bed.ID = reg.idCama
+                WHERE reg.esInterno='true'
+                bigQ;
+                /*foreach (doQueryAllRows($sql) as $v) {
+                    echo var_dump($v);
+                }*/
+                $patientData = array();
+                $queryRows = doQueryAllRows($sql);
+                foreach ($queryRows as $value) {
+                    echo var_dump($value);
+                    $patientData[$value['id']] =  array();
+                };//if this works rows should be collapsed by patient Id
+
+                foreach ($queryRows as $value) {
+                    $patientData[$value['id']]['nombre']    = $value['nombre'];
+                    $patientData[$value['id']]['idCama']    = $value['idCama'];
+                    $patientData[$value['id']]['idRoom']    = $value['idRoom'];
+                    $patientData[$value['id']]['idMed']     = $value['idMed'];
+                    $patientData[$value['id']]['nombreDoc'] = $value['nombreDoc'];
+                    $patientData[$value['id']]['equipo'][]  = $value['equipo'];
+                }// trying to save as:
+                //[patient id => [bedId => id,  ... ,eqptype => [ eq1, eq2, eq3]], ...]
+            }
+            return $patientData;
         }
 
         static function fetchResources()
@@ -122,6 +174,7 @@
             global $tables;
             return fetchTable($tables[2]);
         }
+        
         static function addEquipment($equipName, $units)
         {
             global $tables, ${"fields_$tables[2]"};
@@ -228,3 +281,37 @@ Un ADMINISTRADOR puede visualizar todos los equipos (asignados o no) y agregar n
 El centro de mensajes es donde el ADMINSITRADOR podrá aprobar o rechazar la asignación de equipos. Esta lista debe estar ordenada por prioridad de pacientes y si tiene varios con la misma prioridad, por fecha de solicitud. Esta lista se debe actualizar de acuerdo con los recursos asignados. Por ejemplo, si quedan 2 ventiladores y el primer, segundo y tercer paciente en la lista requieren un ventilador, al momento de llegar al tercero se informará que ya no hay ese equipo disponible y no se podrá asignar; si hay otros equipos disponibles, estos pueden ser asignados normalmente, en caso de que ya no haya ninguno de los equipos solicitados, el ADMINISTRADOR solo tendrá la opción de rechazar solicitud.
 Una vez el ADMINISTRADOR apruebe o rechace una asignación de equipo, se le enviará un correo al médico tratante informándole del estado final de su solicitud (aprobada/rechazada y si fue aprobada, cuales equipos fueron asignados/no asignados)
 */
+
+function testAdmnSv(){
+    
+    doQueryLogin('admin@adminmail.fake','madmin');
+    if (!isset($_COOKIE['rol'])){ header("Refresh:5"); die();}
+    AdminSv::clrcookies();
+    echo 'testing...';
+    //AdminSv::addAdmin(array('nombre'=> 'juanto alimaña','email'=> 'mucha@maña.net','password'=> 'elpaswn')); //create admin
+    echo 'testing...2';
+    AdminSv::addAdmin(array('id'=>5 )); //upd w/e
+    echo 'testing...3';
+    
+    AdminSv::addRoom();//25 rooms in test data
+    AdminSv::addRoom();//3 new rooms 
+    AdminSv::addRoom();
+    echo 'testing...4';
+    AdminSv::addBed(6);
+    AdminSv::addBed(27);
+    
+    echo 'testing...5';
+    echo var_dump(AdminSv::fetchRegisters());
+    echo 'testing...6';
+    echo var_dump(AdminSv::fetchRegisters2());
+    echo 'testing....6.5';
+    echo "<br><br><br><br>";
+    echo var_dump(AdminSv::fetchEquipments());
+    echo "<br><br><br><br>";
+    echo 'testing...7';
+    
+    
+    echo 'testing...8';
+}
+
+testAdmnSv();

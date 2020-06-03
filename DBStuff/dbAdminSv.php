@@ -274,8 +274,8 @@
         static function processRequest($reqId, $isApproved)
         {
             global $tables;
-            $newState = $isApproved ? "prestado" : "rechazado";
-            return doQuery("UPDATE $tables[6] SET estado = '$newState' WHERE ID = $reqId;");
+            $newState = ($isApproved==1) ? "prestado" : "rechazado";
+            return doQuery("UPDATE $tables[6] SET estado = '$newState' WHERE ID = $reqId");
         }
 
         static function getEquipoId($type){

@@ -21,9 +21,11 @@ function enviarCorreo(){
   $subject = "Notificacion de su solicitud";
   $body = "";
   $medico = $_POST["medic"];
-  $aprobado = $_POST["estado"];
-  $body = crearBody($body, $_POST["estado"], $_POST["recurso"], $_POST["Paciente"], $_POST["medico"]);
-  $resultado = AdminSv::processRequest($_POST["idSol"],$aprobado);
+  //$aprobado = $_POST["estado"]==1;
+
+  $body = crearBody($body, $_POST["estado"], $_POST["recurso"], $_POST["paciente"], $_POST["medico"]);
+  $resultado = AdminSv::processRequest($_POST["idSol"],$_POST["estado"]);
+
   $headers = "From: phplz.fmail@gmail.com";
   $seEnvio= mail($to_email, $subject, $body, $headers);
   echo $seEnvio;
@@ -37,4 +39,7 @@ function enviarCorreo(){
 
 }
 
+
 enviarCorreo();
+//$resultado = AdminSv::processRequest(6,0);
+//header("refresh:0; url: 'index.php'");

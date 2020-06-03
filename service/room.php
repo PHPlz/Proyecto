@@ -27,7 +27,7 @@
                     $id = $element['ID'];
                     $sqlBeds =
                     "SELECT ID
-                    FROM camas WHERE idRoom = $id AND activo = 1;";
+                    FROM camas WHERE idRoom = $id";// AND activo = 1;";
                     $dataBeds = doQueryAllRows($sqlBeds);
                     array_push($dataRooms[$i], $dataBeds);
                     ++$i;

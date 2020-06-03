@@ -16,6 +16,12 @@
         {
         }
 
+        static function adminResetDb(){
+            setUpDB();
+            echo 'setup';
+            loadTestData();
+        }
+
         static function clrcookies(){
             setcookie('rol','',  time()-200);
             setcookie('usuario','',  time()-200);

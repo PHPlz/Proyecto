@@ -244,7 +244,7 @@ function loadTestData(){
         echo ";ins";
         doQuery(insertTableSQl($tables[4],array(),array()) );
     }
-    $tdf = fopen( './testDataInserts','r');
+    $tdf = fopen( test_data_path,'r');
             while(!feof($tdf)){
                 doQuery(fgets($tdf));
             }

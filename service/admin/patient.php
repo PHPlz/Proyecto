@@ -30,10 +30,10 @@ $body.="<div class=\"row my-5\">
 $tabProperties = array(
     'header' => array('id','nombre','idCama','idRoom','idMed','nombreDoc','equipos'),
     'select' => false, 
-    'actions' => false/*array('edit' => false, 'delete' => false,
+    'actions' => array('edit' => false, 'delete' => false,
         'others' => array(
-            array('id' => 'btn-refuse', 'name' => 'Rechazar'), 
-        array('id' => 'btn-accept', 'name' => 'Aceptar' ) ) )*/ );
+            array('id' => 'btn-reassign', 'name' => 'Reasignar equipo')/*, 
+        array('id' => 'btn-accept', 'name' => 'Aceptar' ) */) ) );
 
 ob_start();
 createTable($tabProperties, $patients);

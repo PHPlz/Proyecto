@@ -36,6 +36,7 @@
             <input type="button" value="Equipos"    onclick="location.href='equip.php'"  class="btn btn-primary">
             <input type="button" value="Recursos"   onclick="location.href='resource.php'"  class="btn btn-primary">
             <input type="button" value="Agregar Administrador"   onclick="location.href='resource.php'"  class="btn btn-primary">
+            <input type="button" value="Reset DB"   onclick="location.href='admReqHandler.php?type=set-db'"  class="btn btn-primary">
         </div>
         <?php echo $body; ?>
     </div>

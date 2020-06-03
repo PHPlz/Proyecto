@@ -12,6 +12,8 @@ define('db_pwd', '48OAWAjszUKSehJn');
 define('db_host', 'localhost');
 define('db_name', 'fancyshinyproyectdb');
 
+define('test_data_path', 'C:/xampp/htdocs/Proyecto/DBStuff/testDataInserts');
+
 // DB stuff ahead:
 
 $tables =  array(
